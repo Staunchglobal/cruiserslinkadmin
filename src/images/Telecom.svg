@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="496" height="464" viewBox="0 0 496 464">
+  <g id="_016-headphone" data-name="016-headphone" transform="translate(-8 -24)">
+    <g id="Group_879" data-name="Group 879">
+      <path id="Path_1684" data-name="Path 1684" d="M48,240h64V400H48Z" fill="#3e3d42"/>
+      <path id="Path_1685" data-name="Path 1685" d="M16,280H48v80H16Z" fill="#ffda44"/>
+      <path id="Path_1686" data-name="Path 1686" d="M400,240h64V400H400Z" transform="translate(864 640) rotate(180)" fill="#3e3d42"/>
+      <path id="Path_1687" data-name="Path 1687" d="M464,280h32v80H464Z" transform="translate(960 640) rotate(180)" fill="#ffda44"/>
+      <path id="Path_1688" data-name="Path 1688" d="M64,216H96v24H64Z" fill="#e0e0e2"/>
+      <path id="Path_1689" data-name="Path 1689" d="M416,216h32v24H416Z" fill="#e0e0e2"/>
+      <rect id="Rectangle_523" data-name="Rectangle 523" width="64" height="32" rx="16" transform="translate(224 448)" fill="#ffda44"/>
+      <path id="Path_1690" data-name="Path 1690" d="M208,32h96V80H208Z" fill="#2d2d30"/>
+    </g>
+    <path id="Path_1691" data-name="Path 1691" d="M496,272H472V240a8,8,0,0,0-8-8h-8V216a8,8,0,0,0-8-8h-8V184c0-72.3-56.72-131.6-128-135.76V32a8,8,0,0,0-8-8H208a8,8,0,0,0-8,8V48.24C128.72,52.4,72,111.7,72,184v24H64a8,8,0,0,0-8,8v16H48a8,8,0,0,0-8,8v32H16a8,8,0,0,0-8,8v80a8,8,0,0,0,8,8H40v32a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V240a8,8,0,0,0-8-8h-8V216a8,8,0,0,0-8-8H88V184A120.153,120.153,0,0,1,200,64.27V80a8,8,0,0,0,8,8h96a8,8,0,0,0,8-8V64.27A120.153,120.153,0,0,1,424,184v24h-8a8,8,0,0,0-8,8v16h-8a8,8,0,0,0-8,8V400a8,8,0,0,0,8,8h23.42A56.086,56.086,0,0,1,368,456H294.62A24.031,24.031,0,0,0,272,440H240a24,24,0,0,0,0,48h32a24.031,24.031,0,0,0,22.62-16H368a72.083,72.083,0,0,0,71.54-64H464a8,8,0,0,0,8-8V368h24a8,8,0,0,0,8-8V280A8,8,0,0,0,496,272ZM40,352H24V288H40ZM72,224H88v8H72Zm32,24V392H56V248ZM296,72H216V40h80ZM272,472H240a8,8,0,0,1,0-16h32a8,8,0,0,1,0,16ZM424,224h16v8H424Zm32,168H408V248h48Zm32-40H472V288h16Z"/>
+  </g>
+</svg>

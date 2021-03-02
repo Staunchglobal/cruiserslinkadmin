@@ -1,13 +1,94 @@
+html,
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden; /* Prevent scroll on narrow devices */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@media (max-width: 991.98px) {
+  .offcanvas-collapse {
+    position: fixed;
+    top: 55px; /* Height of navbar */
+    bottom: 0;
+    left: 100%;
+    width: 100%;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    overflow-y: auto;
+    visibility: hidden;
+    background-color: #343a40;
+    transition: visibility .3s ease-in-out, -webkit-transform .3s ease-in-out;
+    transition: transform .3s ease-in-out, visibility .3s ease-in-out;
+    transition: transform .3s ease-in-out, visibility .3s ease-in-out, -webkit-transform .3s ease-in-out;
+  }
+  .offcanvas-collapse.open {
+    visibility: visible;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+}
+
+.navbar{
+  z-index: 1;
+}
+
+.list-group-item{
+  padding: 0.75rem 1rem;
+}
+
+.wrap-flex{
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 5px 0;
+}
+
+.single-service{
+  text-align: center;
+  padding: 7px 12px;
+}
+
+.service-img{
+  display: inline-block;
+  position: relative;
+}
+
+.service-img .badge{
+  position: absolute;
+  top: 0;
+  right: -13px;
+  padding: 6px 10px 7px 10px;
+  font-size: 15px;
+  border-radius: 13px;
+  background-color: #e64d26;
+}
+
+.service-link{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+}
+
+.service-link:hover{
+  background-color: #f8f9fa;
+}
+
+.pt-75{
+  padding-top: 75px;
+}
+
+.id-div{
+  padding-top: 15px;
+}
+
+.form-div{
+  height: calc(100vh - 48px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mw-500{
+  max-width: 500px;
 }
