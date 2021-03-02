@@ -11,7 +11,7 @@ function Users() {
               <tbody>
                 <tr>
                   <th>Name</th>
-                  <td>Imran Hayat</td>
+                  <td>abc def</td>
                 </tr>
                 <tr>
                   <th>Email</th>

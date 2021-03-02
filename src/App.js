@@ -8,6 +8,7 @@ import Settings from './pages/Settings'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import ForgotPassword from './pages/ForgotPassword';
+import Search from './pages/Search';
 import './App.css';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/settings" component={Settings} />
           <Route path="/login" component={Login} />
           <Route path="/forgot-password" component={ForgotPassword} />
+          <Route path="/search" component={Search} />
         </Switch>
       </main>
     </Router>
