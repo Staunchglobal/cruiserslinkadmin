@@ -12,6 +12,7 @@ import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import ForgotPassword from './pages/ForgotPassword';
 import Search from './pages/Search';
+import Ratings from './pages/Ratings';
 import './App.css';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/tips" component={TipsTricks} />
           <Route path="/edit_tips" component={EditTipsTricks} />
           <Route path="/claims" component={Claims} />
+          <Route path="/ratings" component={Ratings} />
           <Route path="/settings" component={Settings} />
           <Route path="/login" component={Login} />
           <Route path="/forgot-password" component={ForgotPassword} />
