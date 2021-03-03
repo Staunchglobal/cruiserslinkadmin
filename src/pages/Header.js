@@ -27,6 +27,9 @@ function Header() {
           <li className="nav-item">
             <Link className="nav-link" to="/settings">Settings</Link>
           </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/">Logout</Link>
+          </li>
         </ul>
       </div>
     </nav>

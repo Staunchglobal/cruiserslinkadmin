@@ -154,14 +154,6 @@ function Services() {
           </div>
         </div>
       </div>
-      <div id="Tips" className="id-div">
-        <h5 className="text-primary">Tips & Tricks</h5>
-        <div className="form-row">
-          <div className="col">
-            No Services Present Yet.
-          </div>
-        </div>
-      </div>
       <div id="Telecom" className="id-div">
         <h5 className="text-primary">Telecom</h5>
         <div className="form-row">

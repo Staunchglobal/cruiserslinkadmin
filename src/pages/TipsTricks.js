@@ -15,8 +15,12 @@ function TipsTricks() {
                     <th colSpan="2" className="text-center">National Hospital Lahore</th>
                   </tr>
                   <tr>
-                    <th>Service Type</th>
+                    <th>Subject</th>
                     <td>Commercial</td>
+                  </tr>
+                  <tr>
+                    <th>Description</th>
+                    <td>National Hospital Lahore is a very good hospital but the problem is that they will charge you a lot of money and will almost rip you off. So think twice before going there.</td>
                   </tr>
                   <tr>
                     <th>Category</th>
@@ -27,20 +31,12 @@ function TipsTricks() {
                     <td>Hospitals</td>
                   </tr>
                   <tr>
-                    <th>Service Attachments</th>
-                    <td>1</td>
+                    <th>Posted By</th>
+                    <td>Imran Hayat</td>
                   </tr>
                   <tr>
-                    <th>Service Description</th>
-                    <td>National Hospital Lahore is a very good hospital but the problem is that they will charge you a lot of money and will almost rip you off. So think twice before going there.</td>
-                  </tr>
-                  <tr>
-                    <th>Pricing</th>
-                    <td>$50</td>
-                  </tr>
-                  <tr>
-                    <th>Contact Number</th>
-                    <td>+923229499463</td>
+                    <th>Anonymous</th>
+                    <td>true</td>
                   </tr>
                   <tr>
                     <th>Average Ratings</th>
@@ -49,10 +45,6 @@ function TipsTricks() {
                   <tr>
                     <th>Total Ratings</th>
                     <td>1</td>
-                  </tr>
-                  <tr>
-                    <th>Time</th>
-                    <td>8:00 - 0:00</td>
                   </tr>
                   <tr>
                     <th>Status</th>
@@ -65,7 +57,7 @@ function TipsTricks() {
                   <tr>
                     <th>Actions</th>
                     <td>
-                      <Link to="/edit_service">Edit</Link>
+                      <Link to="/edit_tips">Edit</Link>
                       <Link to="Delete" className="text-danger ml-2">Delete</Link>
                     </td>
                   </tr>

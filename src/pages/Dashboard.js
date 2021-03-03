@@ -6,6 +6,7 @@ import Marinas from './../images/Marinas.svg';
 import Miscellanous from './../images/Miscellanous.svg';
 import Pets from './../images/Pets.svg';
 import Telecom from './../images/Telecom.svg';
+import Messaging from './../images/Messaging.png';
 import Anchoring from './../images/Anchoring.png';
 import Antifouling from './../images/Antifouling.png';
 import BadWeather from './../images/BadWeather.png';
@@ -85,7 +86,7 @@ function Dashboard() {
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
-                    Anchorages,<br/>Marinas Boatyards
+                    Anchorages,<br/>Marinas & Boatyards
                   </div>
                 </a>
                 <a href="/services#Food" className="text-reset single-service">
@@ -95,15 +96,6 @@ function Dashboard() {
                   </div>
                   <div className="mt-1">
                     Food &<br/>Drinks
-                  </div>
-                </a>
-                <a href="/services#Tips" className="text-reset single-service">
-                  <div className="service-img">
-                    <img src={Food} alt="Tips" height="60" />
-                    <span className="badge badge-primary badge-pill">2</span>
-                  </div>
-                  <div className="mt-1">
-                    Tips &<br/>Tricks
                   </div>
                 </a>
                 <a href="/services#Telecom" className="text-reset single-service">
@@ -153,7 +145,7 @@ function Dashboard() {
                 </a>
                 <a href="/services#Messaging" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Miscellanous} alt="Messaging" height="60" />
+                    <img src={Messaging} alt="Messaging" height="60" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
