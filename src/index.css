@@ -37,14 +37,14 @@ body {
 .wrap-flex{
   display: flex;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: space-around;
   flex-wrap: wrap;
   padding: 5px 0;
 }
 
 .single-service{
   text-align: center;
-  padding: 7px 12px;
+  padding: 7px 11px;
 }
 
 .service-img{
