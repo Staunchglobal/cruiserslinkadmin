@@ -1,5 +1,5 @@
 import Header from './pages/Header';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Services from './pages/Services'
 import EditService from './pages/EditService'
 import Users from './pages/Users'
@@ -15,29 +15,44 @@ import Search from './pages/Search';
 import Ratings from './pages/Ratings';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.css';
+import { AuthProvider, useAuth } from './services/Auth';
+import PrivateRoute from './util/PrivateRoute';
+import OpenRoute from './util/OpenRoute';
 
-function App() {
+function MainComponent() {
+  const { currentUser } = useAuth();
+  console.log(currentUser)
   return (
     <Router>
-      <Header/>
+      {currentUser ?
+        <Header /> : null
+      }
       <main role="main" className="container-xl py-4 px-2">
         <Switch>
-          <Route path="/" exact component={Dashboard} />
-          <Route path="/users" component={Users} />
-          <Route path="/edit_user" component={EditUser} />
-          <Route path="/services" component={Services} />
-          <Route path="/edit_service" component={EditService} />
-          <Route path="/tips" component={TipsTricks} />
-          <Route path="/edit_tips" component={EditTipsTricks} />
-          <Route path="/claims" component={Claims} />
-          <Route path="/ratings" component={Ratings} />
-          <Route path="/settings" component={Settings} />
-          <Route path="/login" component={Login} />
-          <Route path="/forgot-password" component={ForgotPassword} />
-          <Route path="/search" component={Search} />
+          <PrivateRoute path="/" exact component={Dashboard} />
+          <PrivateRoute path="/users" component={Users} />
+          <PrivateRoute path="/edit_user" component={EditUser} />
+          <PrivateRoute path="/services" component={Services} />
+          <PrivateRoute path="/edit_service" component={EditService} />
+          <PrivateRoute path="/tips" component={TipsTricks} />
+          <PrivateRoute path="/edit_tips" component={EditTipsTricks} />
+          <PrivateRoute path="/claims" component={Claims} />
+          <PrivateRoute path="/ratings" component={Ratings} />
+          <PrivateRoute path="/settings" component={Settings} />
+          <OpenRoute path="/login" component={Login} />
+          <OpenRoute path="/forgot-password" component={ForgotPassword} />
+          <PrivateRoute path="/search" component={Search} />
         </Switch>
       </main>
     </Router>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <MainComponent />
+    </AuthProvider>
   );
 }
 

@@ -1,7 +1,19 @@
 import LogoWhite from './../images/logoWhite.png';
-import {NavLink} from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
+import { useAuth } from '../services/Auth';
 
 function Header() {
+  const { logout } = useAuth();
+  const history = useHistory();
+  const handleLogOut = async function (event) {
+    event.preventDefault();
+    try {
+      await logout();
+      history.push('/login')
+    } catch (err) {
+      alert(err.message)
+    }
+  }
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <NavLink className="navbar-brand mr-auto mr-lg-0" to="/">
@@ -31,7 +43,7 @@ function Header() {
             <NavLink activeClassName="active" className="nav-link" to="/settings">Settings</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink activeClassName="active" exact={true} className="nav-link" to="/login">Logout</NavLink>
+            <NavLink onClick={handleLogOut} activeClassName="active" exact={true} className="nav-link" to="#">Logout</NavLink>
           </li>
         </ul>
       </div>
