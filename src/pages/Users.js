@@ -11,7 +11,7 @@ function Users() {
               <tbody>
                 <tr>
                   <th>Name</th>
-                  <td>abc def</td>
+                  <td>Imran Hayat</td>
                 </tr>
                 <tr>
                   <th>Email</th>
@@ -38,7 +38,8 @@ function Users() {
             <table className="table table-bordered table-striped">
               <tbody>
                 <tr>
-                  <th colSpan="2" className="text-center">Imran Hayat</th>
+                  <th>Name</th>
+                  <td>Imran Hayat</td>
                 </tr>
                 <tr>
                   <th>Email</th>
@@ -65,7 +66,8 @@ function Users() {
             <table className="table table-bordered table-striped">
               <tbody>
                 <tr>
-                  <th colSpan="2" className="text-center">Imran Hayat</th>
+                  <th>Name</th>
+                  <td>Imran Hayat</td>
                 </tr>
                 <tr>
                   <th>Email</th>

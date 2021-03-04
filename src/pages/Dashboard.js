@@ -58,31 +58,37 @@ import {Link} from 'react-router-dom';
 function Dashboard() {
   return (
     <div>
-      <h3 className="text-center">Dashboard</h3>
+      <h3 className="text-center">Admin Panel</h3>
       <ul className="list-group">
           <Link to="/users" className="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
             Users
-            <h5 className="text-primary">12</h5>
+            <div>
+              <h5 className="d-inline-block mb-0">12</h5>
+              <i className="fas fa-chevron-right link-arrow text-primary"></i>
+            </div>
           </Link>
           <div className="list-group-item services p-0">
             <Link to="/services" className="service-link text-reset">
               Services
-              <h5 className="text-primary">12</h5>
+              <div>
+                <h5 className="d-inline-block mb-0">12</h5>
+                <i className="fas fa-chevron-right link-arrow text-primary"></i>
+              </div>
             </Link>
             <div className="border-top p-0">
               <div className="text-center wrap-flex">
                 <a href="/services#Yacht" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Boat} alt="Boat" height="60" />
+                    <img src={Boat} alt="Boat" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
-                    Yacht Services
+                    Yacht<br/>Services
                   </div>
                 </a>
                 <a href="/services#Marinas" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Marinas} alt="Marinas" height="60" />
+                    <img src={Marinas} alt="Marinas" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -91,7 +97,7 @@ function Dashboard() {
                 </a>
                 <a href="/services#Food" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Food} alt="Food" height="60" />
+                    <img src={Food} alt="Food" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -100,7 +106,7 @@ function Dashboard() {
                 </a>
                 <a href="/services#Telecom" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Telecom} alt="Telecom" height="60" />
+                    <img src={Telecom} alt="Telecom" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -109,7 +115,7 @@ function Dashboard() {
                 </a>
                 <a href="/services#Health" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Health} alt="Health" height="60" />
+                    <img src={Health} alt="Health" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -118,7 +124,7 @@ function Dashboard() {
                 </a>
                 <a href="/services#Pets" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Pets} alt="Pets" height="60" />
+                    <img src={Pets} alt="Pets" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -127,7 +133,7 @@ function Dashboard() {
                 </a>
                 <a href="/services#Customs" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Customs} alt="Customs" height="60" />
+                    <img src={Customs} alt="Customs" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -136,7 +142,7 @@ function Dashboard() {
                 </a>
                 <a href="/services#Miscellanous" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Miscellanous} alt="Miscellanous" height="60" />
+                    <img src={Miscellanous} alt="Miscellanous" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -145,7 +151,7 @@ function Dashboard() {
                 </a>
                 <a href="/services#Messaging" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Messaging} alt="Messaging" height="60" />
+                    <img src={Messaging} alt="Messaging" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -158,13 +164,16 @@ function Dashboard() {
           <div className="list-group-item services p-0">
             <Link to="/tips" className="service-link text-reset">
               Tips & Tricks
-              <h5 className="text-primary">12</h5>
+              <div>
+                <h5 className="d-inline-block mb-0">12</h5>
+                <i className="fas fa-chevron-right link-arrow text-primary"></i>
+              </div>
             </Link>
             <div className="border-top p-0">
               <div className="text-center wrap-flex">
                 <a href="/tips#Anchoring" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Anchoring} alt="Anchoring" height="60" />
+                    <img src={Anchoring} alt="Anchoring" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -173,7 +182,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Antifouling" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Antifouling} alt="Antifouling" height="60" />
+                    <img src={Antifouling} alt="Antifouling" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -182,7 +191,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#BadWeather" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={BadWeather} alt="BadWeather" height="60" />
+                    <img src={BadWeather} alt="BadWeather" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -191,7 +200,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Bags" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Bags} alt="Bags" height="60" />
+                    <img src={Bags} alt="Bags" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -200,7 +209,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Canvas" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Canvas} alt="Canvas" height="60" />
+                    <img src={Canvas} alt="Canvas" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -209,7 +218,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Charts" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Charts} alt="Charts" height="60" />
+                    <img src={Charts} alt="Charts" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -218,7 +227,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Clothing" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Clothing} alt="Clothing" height="60" />
+                    <img src={Clothing} alt="Clothing" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -227,7 +236,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Communication" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Communication} alt="Communication" height="60" />
+                    <img src={Communication} alt="Communication" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -236,7 +245,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Compass" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Compass} alt="Compass" height="60" />
+                    <img src={Compass} alt="Compass" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -245,7 +254,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Deck" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Deck} alt="Deck" height="60" />
+                    <img src={Deck} alt="Deck" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -254,7 +263,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Dinghies" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Dinghies} alt="Dinghies" height="60" />
+                    <img src={Dinghies} alt="Dinghies" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -263,7 +272,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Pier" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Pier} alt="Pier" height="60" />
+                    <img src={Pier} alt="Pier" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -272,7 +281,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#AC_power" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={AC_power} alt="AC_power" height="60" />
+                    <img src={AC_power} alt="AC_power" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -281,7 +290,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#DC_power" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={DC_power} alt="DC_power" height="60" />
+                    <img src={DC_power} alt="DC_power" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -290,7 +299,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Engine" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Engine} alt="Engine" height="60" />
+                    <img src={Engine} alt="Engine" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -299,7 +308,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Fiberglass" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Fiberglass} alt="Fiberglass" height="60" />
+                    <img src={Fiberglass} alt="Fiberglass" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -308,7 +317,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Fishing" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Fishing} alt="Fishing" height="60" />
+                    <img src={Fishing} alt="Fishing" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -317,7 +326,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Flipflops" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Flipflops} alt="Flipflops" height="60" />
+                    <img src={Flipflops} alt="Flipflops" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -326,7 +335,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Kitchen" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Kitchen} alt="Kitchen" height="60" />
+                    <img src={Kitchen} alt="Kitchen" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -335,7 +344,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Head" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Head} alt="Head" height="60" />
+                    <img src={Head} alt="Head" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -344,7 +353,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Healthcare" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Healthcare} alt="Healthcare" height="60" />
+                    <img src={Healthcare} alt="Healthcare" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -353,7 +362,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Heating" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Heating} alt="Heating" height="60" />
+                    <img src={Heating} alt="Heating" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -362,7 +371,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Hose" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Hose} alt="Hose" height="60" />
+                    <img src={Hose} alt="Hose" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -371,7 +380,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Interior" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Interior} alt="Interior" height="60" />
+                    <img src={Interior} alt="Interior" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -380,7 +389,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Laundry" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Laundry} alt="Laundry" height="60" />
+                    <img src={Laundry} alt="Laundry" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -389,7 +398,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Light_bulb" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Light_bulb} alt="Light_bulb" height="60" />
+                    <img src={Light_bulb} alt="Light_bulb" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -398,7 +407,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Maintenance" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Maintenance} alt="Maintenance" height="60" />
+                    <img src={Maintenance} alt="Maintenance" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -407,7 +416,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Navigation" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Navigation} alt="Navigation" height="60" />
+                    <img src={Navigation} alt="Navigation" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -416,7 +425,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Outboards" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Outboards} alt="Outboards" height="60" />
+                    <img src={Outboards} alt="Outboards" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -425,16 +434,16 @@ function Dashboard() {
                 </a>
                 <a href="/tips#PetsTips" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={PetsTips} alt="PetsTips" height="60" />
+                    <img src={PetsTips} alt="PetsTips" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
-                    Pets Aboard
+                    Pets<br/>Aboard
                   </div>
                 </a>
                 <a href="/tips#Plumbing" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Plumbing} alt="Plumbing" height="60" />
+                    <img src={Plumbing} alt="Plumbing" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -443,7 +452,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Shopping" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Shopping} alt="Shopping" height="60" />
+                    <img src={Shopping} alt="Shopping" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -452,7 +461,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Freezer_fridge" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Freezer_fridge} alt="Freezer_fridge" height="60" />
+                    <img src={Freezer_fridge} alt="Freezer_fridge" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -461,7 +470,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Rigging_running" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Rigging_running} alt="Rigging_running" height="60" />
+                    <img src={Rigging_running} alt="Rigging_running" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -470,7 +479,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Rigging_standing" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Rigging_standing} alt="Rigging_standing" height="60" />
+                    <img src={Rigging_standing} alt="Rigging_standing" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -479,7 +488,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Safety" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Safety} alt="Safety" height="60" />
+                    <img src={Safety} alt="Safety" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -488,7 +497,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Scubadive" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Scubadive} alt="Scubadive" height="60" />
+                    <img src={Scubadive} alt="Scubadive" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -497,7 +506,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Snorkel_goggles" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Snorkel_goggles} alt="Snorkel_goggles" height="60" />
+                    <img src={Snorkel_goggles} alt="Snorkel_goggles" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -506,7 +515,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Tool" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Tool} alt="Tool" height="60" />
+                    <img src={Tool} alt="Tool" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -515,7 +524,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Topside" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Topside} alt="Topside" height="60" />
+                    <img src={Topside} alt="Topside" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -524,7 +533,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Ventilation" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Ventilation} alt="Ventilation" height="60" />
+                    <img src={Ventilation} alt="Ventilation" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -533,7 +542,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#watermaker" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={watermaker} alt="watermaker" height="60" />
+                    <img src={watermaker} alt="watermaker" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -542,7 +551,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Watersports" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Watersports} alt="Watersports" height="60" />
+                    <img src={Watersports} alt="Watersports" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -551,7 +560,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Winterize" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Winterize} alt="Winterize" height="60" />
+                    <img src={Winterize} alt="Winterize" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -560,7 +569,7 @@ function Dashboard() {
                 </a>
                 <a href="/tips#Zinc" className="text-reset single-service">
                   <div className="service-img">
-                    <img src={Zinc} alt="Zinc" height="60" />
+                    <img src={Zinc} alt="Zinc" height="50" />
                     <span className="badge badge-primary badge-pill">2</span>
                   </div>
                   <div className="mt-1">
@@ -572,10 +581,16 @@ function Dashboard() {
           </div>
           <Link to="/claims" className="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
             Claims
-            <h5 className="text-primary">12</h5>
+            <div>
+              <h5 className="d-inline-block mb-0">12</h5>
+              <i className="fas fa-chevron-right link-arrow text-primary"></i>
+            </div>
           </Link>
-          <Link to="/settings" className="list-group-item list-group-item-action">
+          <Link to="/settings" className="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
             Settings
+            <div>
+              <i className="fas fa-chevron-right link-arrow text-primary"></i>
+            </div>
           </Link>
         </ul>
     </div>
