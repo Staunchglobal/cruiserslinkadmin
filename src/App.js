@@ -14,6 +14,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import Search from './pages/Search';
 import Ratings from './pages/Ratings';
 import './App.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 function App() {
   return (

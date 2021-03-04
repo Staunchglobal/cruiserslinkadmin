@@ -1,5 +1,8 @@
 import Boat from './../images/Boat.svg';
 import {Link} from 'react-router-dom';
+import React from "react";
+import SimpleReactLightbox from 'simple-react-lightbox'
+import { SRLWrapper } from "simple-react-lightbox";
 
 function Claims() {
   return (
@@ -16,7 +19,13 @@ function Claims() {
                 </tr>
                 <tr>
                   <th>Attachment</th>
-                  <td><img src={Boat} alt="attachment" className="img-thumbnail" /></td>
+                  <td>
+                    <SimpleReactLightbox>
+                      <SRLWrapper>
+                        <img src={Boat} alt="" className="img-thumbnail" />
+                      </SRLWrapper>
+                    </SimpleReactLightbox>
+                  </td>
                 </tr>
                 <tr>
                   <th>Actions</th>
@@ -39,7 +48,13 @@ function Claims() {
                 </tr>
                 <tr>
                   <th>Attachment</th>
-                  <td><img src={Boat} alt="attachment" className="img-thumbnail" /></td>
+                  <td>
+                    <SimpleReactLightbox>
+                      <SRLWrapper>
+                        <img src={Boat} alt="" className="img-thumbnail" />
+                      </SRLWrapper>
+                    </SimpleReactLightbox>
+                  </td>
                 </tr>
                 <tr>
                   <th>Actions</th>
@@ -62,7 +77,13 @@ function Claims() {
                 </tr>
                 <tr>
                   <th>Attachment</th>
-                  <td><img src={Boat} alt="attachment" className="img-thumbnail" /></td>
+                  <td>
+                    <SimpleReactLightbox>
+                      <SRLWrapper>
+                        <img src={Boat} alt="" className="img-thumbnail" />
+                      </SRLWrapper>
+                    </SimpleReactLightbox>
+                  </td>
                 </tr>
                 <tr>
                   <th>Actions</th>
