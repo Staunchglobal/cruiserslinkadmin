@@ -31,7 +31,7 @@ function Header() {
             <NavLink activeClassName="active" className="nav-link" to="/settings">Settings</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink activeClassName="active" exact={true} className="nav-link" to="/logout">Logout</NavLink>
+            <NavLink activeClassName="active" exact={true} className="nav-link" to="/login">Logout</NavLink>
           </li>
         </ul>
       </div>
