@@ -21,7 +21,7 @@ import OpenRoute from './util/OpenRoute';
 
 function MainComponent() {
   const { currentUser } = useAuth();
-  console.log(currentUser)
+  // console.log(currentUser) 
   return (
     <Router>
       {currentUser ?
