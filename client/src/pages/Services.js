@@ -1,13 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 function Services() {
+  const { id } = useParams();
   return (
     <div>
       <h3 className="text-center">Services</h3>
       <div id="Yacht" className="id-div">
         <h5 className="text-primary">Yacht Services</h5>
         <div className="form-row">
-          <div className="col-sm-6 col-lg-4">
+          <div className="col-sm-6 col-lg-12">
             <div className="table-responsive">
               <table className="table table-bordered table-striped">
                 <tbody>

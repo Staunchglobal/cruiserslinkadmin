@@ -10,20 +10,20 @@ export const ResetUsers = function () {
     return { type: actions.RESET_USERS }
 }
 // Services
-export const SetServices = function (services) {
+export const SetServices = function (category, services) {
     return {
         type: actions.SET_SERVICES,
-        payload: { services }
+        payload: { services, category }
     }
 }
 export const ResetServices = function () {
     return { type: actions.RESET_SERVICES }
 }
 // Tips And Tricks
-export const SetTipAndTricks = function (tipsandtricks) {
+export const SetTipAndTricks = function (category, tipsandtricks) {
     return {
         type: actions.SET_TIPS_AND_TRICKS,
-        payload: { tipsandtricks }
+        payload: { category, tipsandtricks }
     }
 }
 export const ResetTipsAndTricks = function () {

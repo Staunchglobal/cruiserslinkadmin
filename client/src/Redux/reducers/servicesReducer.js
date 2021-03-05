@@ -1,12 +1,26 @@
 import { SET_SERVICES, RESET_SERVICES } from '../actions/actionTypes'
+import { ServiceCategories } from '../../util/constants'
 const initialState = {
-    services: [],
-    meta: {},
+    services: {
+        1: { data: [], count: 0 },
+        2: { data: [], count: 0 },
+        3: { data: [], count: 0 },
+        4: { data: [], count: 0 },
+        5: { data: [], count: 0 },
+        6: { data: [], count: 0 },
+        7: { data: [], count: 0 },
+        8: { data: [], count: 0 },
+    },
 }
 export const servicesReducer = function (state = initialState, action) {
     switch (action.type) {
         case SET_SERVICES:
-            return Object.assign({}, state, { services: action.payload.services })
+            const { services, category } = action.payload
+            const { data, count } = state.services[category]
+            return Object.assign({}, state, {
+                ...state.services,
+                [category]: { data: [...data, ...services], count: count + services.length },
+            })
         case RESET_SERVICES:
             return Object.assign({}, state, initialState)
         default:
