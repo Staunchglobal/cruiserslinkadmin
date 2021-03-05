@@ -18,11 +18,9 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-$(function () {
-  $('[data-toggle="offcanvas"], .offcanvas-collapse .nav-link').on('click', function () {
+  $(document).on('click', '[data-toggle="offcanvas"], .offcanvas-collapse .nav-link', function () {
     $('.offcanvas-collapse').toggleClass('open')
   })
-})
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

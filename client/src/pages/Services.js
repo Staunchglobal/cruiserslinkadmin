@@ -77,13 +77,13 @@ function Services() {
         <nav aria-label="Page navigation example">
           <ul className="pagination justify-content-center">
             <li className="page-item disabled">
-              <a className="page-link" href="#" tabIndex="-1">Previous</a>
+              <button type="button" className="page-link" tabIndex="-1">Previous</button>
             </li>
-            <li className="page-item"><a className="page-link" href="#">1</a></li>
-            <li className="page-item"><a className="page-link" href="#">2</a></li>
-            <li className="page-item"><a className="page-link" href="#">3</a></li>
+            <li className="page-item active"><button type="button" className="page-link">1</button></li>
+            <li className="page-item"><button type="button" className="page-link">2</button></li>
+            <li className="page-item"><button type="button" className="page-link">3</button></li>
             <li className="page-item">
-              <a className="page-link" href="#">Next</a>
+              <button type="button" className="page-link">Next</button>
             </li>
           </ul>
         </nav>

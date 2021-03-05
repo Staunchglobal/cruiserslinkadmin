@@ -43,7 +43,7 @@ function Header() {
             <NavLink activeClassName="active" className="nav-link" to="/settings">Settings</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink onClick={handleLogOut} activeClassName="active" exact={true} className="nav-link" to="#">Logout</NavLink>
+            <button type="button" onClick={handleLogOut} className="btn nav-link">Logout</button>
           </li>
         </ul>
       </div>

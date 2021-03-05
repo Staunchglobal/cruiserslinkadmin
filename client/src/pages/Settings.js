@@ -70,7 +70,7 @@ function Settings() {
               </div>
             }
             {error &&
-              <div class={`alert alert-${errorType}`} role="alert">
+              <div className={`alert alert-${errorType}`} role="alert">
                 {error}
               </div>
             }
