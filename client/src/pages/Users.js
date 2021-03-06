@@ -1,97 +1,104 @@
-import {Link} from 'react-router-dom';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { SetUsers } from '../Redux/actions/actions';
+import { useAuth } from '../services/Auth';
+import { firestore } from '../services/base';
+import Swal from 'sweetalert2'
 
-function Users() {
+function Users(props) {
+  const { users, setUsers } = props
+  const { currentUser } = useAuth();
+
+  useEffect(() => {
+    if (users.length > 0) {
+      firestore.collection('Users').orderBy('__name__', 'asc').startAfter(users[users.length - 1].id).get().then(snapshot => {
+        setUsers([...snapshot.docs.map(x => {
+          return {
+            id: x.id,
+            ...x.data(),
+          }
+        }), ...users])
+      })
+    } else {
+      firestore.collection('Users').orderBy('__name__', 'asc').get().then(snapshot => {
+        setUsers(snapshot.docs.map(x => {
+          return {
+            id: x.id,
+            ...x.data(),
+          }
+        }))
+      })
+    }
+  }, [])
+
+  const ToggleEnableDisable = async function (id, value) {
+    try {
+      const response = await fetch('/api/enable_disable', { method: 'POST', headers: { Authorization: `Bearer ${currentUser.uid}` }, body: JSON.stringify({ id: id, value: value }) })
+      const jsonResponse = await response.json();
+      console.log(jsonResponse, response.status)
+      if (response.status === 200) {
+        setUsers(users.map(user => user.id === id ? { ...user, disabled: value } : user))
+        Swal.fire({ title: 'Success!', text: `User changed successfully!`, icon: 'success' }).then(() => { })
+      } else {
+        Swal.fire({ title: 'Notice', text: `Error ${response.status}`, icon: 'error' }).then(() => { })
+      }
+    } catch (err) {
+      Swal.fire({ title: 'Notice', text: `Error ${err.message}`, icon: 'error' }).then(() => { })
+    }
+  }
   return (
     <div>
       <h3 className="text-center mb-3">Users</h3>
       <div className="form-row">
-        <div className="col-md-6 col-lg-4">
-          <div className="table-responsive">
-            <table className="table table-bordered table-striped">
-              <tbody>
-                <tr>
-                  <th>Name</th>
-                  <td>Imran Hayat</td>
-                </tr>
-                <tr>
-                  <th>Email</th>
-                  <td>imran.hayat92@gmail.com</td>
-                </tr>
-                <tr>
-                  <th>User Type</th>
-                  <td>Business</td>
-                </tr>
-                <tr>
-                  <th>Actions</th>
-                  <td>
-                  <Link to="/edit_user">Edit</Link>
-                  <Link to="Enable" className="ml-2">Enable</Link>
-                  <Link to="Disable" className="text-danger ml-2">Disable</Link>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className="col-md-6 col-lg-4">
-          <div className="table-responsive">
-            <table className="table table-bordered table-striped">
-              <tbody>
-                <tr>
-                  <th>Name</th>
-                  <td>Imran Hayat</td>
-                </tr>
-                <tr>
-                  <th>Email</th>
-                  <td>imran.hayat92@gmail.com</td>
-                </tr>
-                <tr>
-                  <th>User Type</th>
-                  <td>Business</td>
-                </tr>
-                <tr>
-                  <th>Actions</th>
-                  <td>
-                  <Link to="/edit_user">Edit</Link>
-                  <Link to="Enable" className="ml-2">Enable</Link>
-                  <Link to="Disable" className="text-danger ml-2">Disable</Link>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className="col-md-6 col-lg-4">
-          <div className="table-responsive">
-            <table className="table table-bordered table-striped">
-              <tbody>
-                <tr>
-                  <th>Name</th>
-                  <td>Imran Hayat</td>
-                </tr>
-                <tr>
-                  <th>Email</th>
-                  <td>imran.hayat92@gmail.com</td>
-                </tr>
-                <tr>
-                  <th>User Type</th>
-                  <td>Business</td>
-                </tr>
-                <tr>
-                  <th>Actions</th>
-                  <td>
-                  <Link to="/edit_user">Edit</Link>
-                  <Link to="Enable" className="ml-2">Enable</Link>
-                  <Link to="Disable" className="text-danger ml-2">Disable</Link>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        {users.map((user) => {
+          return (
+            <div key={user.id} className="col-md-6 col-lg-4">
+              <div className="table-responsive">
+                <table className="table table-bordered table-striped">
+                  <tbody>
+                    <tr>
+                      <th>Name</th>
+                      <td>{user.fullName}</td>
+                    </tr>
+                    <tr>
+                      <th>Email</th>
+                      <td>{user.email}</td>
+                    </tr>
+                    <tr>
+                      <th>User Type</th>
+                      <td>{user.userType}</td>
+                    </tr>
+                    <tr>
+                      <th>Actions</th>
+                      <td>
+                        <Link to="/edit_user">Edit</Link>
+                        {user.disabled ?
+                          <Link onClick={e => ToggleEnableDisable(user.id, true)} to="#" className="ml-2">Enable</Link> :
+                          <Link onClick={e => ToggleEnableDisable(user.id, false)} to="#" className="text-danger ml-2">Disable</Link>
+                        }
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )
+        })}
       </div>
-    </div>
+    </div >
   );
 }
-
-export default Users;
+const mapStateToProps = state => {
+  return {
+    users: state.usersReducer.users
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    setUsers: function (users) {
+      dispatch(SetUsers(users));
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Users);

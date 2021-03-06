@@ -18,8 +18,10 @@ export const servicesReducer = function (state = initialState, action) {
             const { services, category } = action.payload
             const { data, count } = state.services[category]
             return Object.assign({}, state, {
-                ...state.services,
-                [category]: { data: [...data, ...services], count: count + services.length },
+                services: {
+                    ...state.services,
+                    [category]: { data: [...data, ...services], count: count + services.length },
+                }
             })
         case RESET_SERVICES:
             return Object.assign({}, state, initialState)
