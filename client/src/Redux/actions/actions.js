@@ -55,3 +55,16 @@ export const ResetClaims = function () {
         type: actions.RESET_CLAIMS
     }
 }
+
+// Stats
+export const SetStats = function (stats) {
+    return {
+        type: actions.SET_STATS,
+        payload: { stats }
+    }
+}
+export const ResetStats = function () {
+    return {
+        type: actions.RESET_STATS
+    }
+}

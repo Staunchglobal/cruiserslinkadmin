@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 
 function Services() {
   const { id } = useParams();
+  console.log(id)
   return (
     <div>
       <h3 className="text-center">Services</h3>
