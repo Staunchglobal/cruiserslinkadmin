@@ -6,18 +6,33 @@ import { firestore } from '../services/base'
 import { CategoriesToName, SubCategoriesToName } from '../util/constants'
 const names = ["Yacht Services", "Anchorages Marinas Boatyards", "Food & Drinks", "Tips & Tricks", "Telecom", "Health", "Pets", "Government && Customs", "Miscellanous", "Messaging"]
 const Service = function (props) {
-    const { stats, services, id, setServices } = props
-    const intId = JSON.parse(id)
-    const [activePage, setActivePage] = useState(0);
+    const { stats, services, id, setServices, limit } = props
+    const intId = JSON.parse(id);
+    const [totalPages, setTotalPages] = useState(Math.floor(stats.total / limit) + 1);
+    const [activePage, setActivePage] = useState(1);
+    const [activeState, setActiveState] = useState("all");
     useEffect(() => {
+        fetchServices();
+    }, [])
+    useEffect(() => {
+        if (activeState === "all") {
+            setTotalPages(Math.floor(stats.total / limit) + 1); setActivePage(1);
+        } else if (activeState === "pending") {
+            setTotalPages(Math.floor(stats.pending / limit) + 1); setActivePage(1);
+        } else if (activeState === "active") {
+            setTotalPages(Math.floor(stats.active / limit) + 1); setActivePage(1);
+        } else if (activeState === "inactive") {
+            setTotalPages(Math.floor(stats.inactive / limit) + 1); setActivePage(1);
+        }
+    }, [activeState])
+    const fetchServices = function () {
         if (services.data.length > 0) {
             firestore
                 .collection('Services')
                 .orderBy('DateSubmitted', 'desc')
-                .orderBy('__name__', 'desc')
                 .where('Category', '==', intId)
-                .startAfter(services.data[services.data.length - 1].id)
-                .limit(25)
+                .startAfter(services.data[services.data.length - 1].DateSubmitted)
+                .limit(limit)
                 .get()
                 .then(snapshot => {
                     setServices(intId, snapshot.docs.map((doc, index) => {
@@ -33,10 +48,9 @@ const Service = function (props) {
         } else {
             firestore
                 .collection('Services')
-                .orderBy('DateSubmitted', 'desc')
-                .orderBy('__name__', 'desc')
                 .where('Category', '==', intId)
-                .limit(25)
+                .orderBy('DateSubmitted', 'desc')
+                .limit(limit)
                 .get()
                 .then(snapshot => {
                     setServices(intId, snapshot.docs.map((doc, index) => {
@@ -49,11 +63,28 @@ const Service = function (props) {
                     console.log(err)
                 })
         }
-    }, [])
+    }
+    const data = services.data.filter((_user, index) => {
+        const typeFilter = activeState === "all" ? true : _user.ServiceStatus === activeState
+        const pageFilter = index + 1 > (activePage - 1 * limit) && index + 1 < (activePage * limit)
+        return typeFilter && pageFilter
+    });
+    // console.log(activePage,totalPages)
     return (
-        services.count === 0 ?
+        data.length === 0 ?
             <div>
                 <h5 className="text-primary">{names[intId - 1]}</h5>
+                <div className="dropdown">
+                    <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {activeState.toUpperCase()}
+                    </button>
+                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {activeState !== "all" ? <a className="dropdown-item" onClick={e => { e.preventDefault(); setActiveState("all") }} href="#">All</a> : null}
+                        {activeState !== "pending" ? <a className="dropdown-item" onClick={e => { e.preventDefault(); setActiveState("pending") }} href="#">Pending</a> : null}
+                        {activeState !== "active" ? <a className="dropdown-item" onClick={e => { e.preventDefault(); setActiveState("active") }} href="#">Active</a> : null}
+                        {activeState !== "inactive" ? <a className="dropdown-item" onClick={e => { e.preventDefault(); setActiveState("inactive") }} href="#">Inactive</a> : null}
+                    </div>
+                </div>
                 <div className="form-row">
                     <div className="col">
                         No Services Present Yet.
@@ -61,20 +92,21 @@ const Service = function (props) {
                 </div>
             </div> :
             <div id="Yacht" className="id-div">
-                <h5 className="text-primary">{names[intId - 1]}</h5>
+                <h5 className="text-primary">{names[intId - 1]} ({activeState === "all" ? stats.total : activeState === "pending" ? stats.pending : activeState === "active" ? stats.active : stats.inactive})</h5>
                 <div className="dropdown">
                     <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown button
+                        {activeState.toUpperCase()}
                     </button>
                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a className="dropdown-item" href="#">Pending</a>
-                        <a className="dropdown-item" href="#">Active</a>
-                        <a className="dropdown-item" href="#">Inactive</a>
+                        {activeState !== "all" ? <a className="dropdown-item" onClick={e => { e.preventDefault(); setActiveState("all") }} href="#">All</a> : null}
+                        {activeState !== "pending" ? <a className="dropdown-item" onClick={e => { e.preventDefault(); setActiveState("pending") }} href="#">Pending</a> : null}
+                        {activeState !== "active" ? <a className="dropdown-item" onClick={e => { e.preventDefault(); setActiveState("active") }} href="#">Active</a> : null}
+                        {activeState !== "inactive" ? <a className="dropdown-item" onClick={e => { e.preventDefault(); setActiveState("inactive") }} href="#">Inactive</a> : null}
                     </div>
                 </div>
-                {services.data.map((entry, index) => {
+                {data.map((entry, index) => {
                     return (
-                        <div key={entry.id} className="form-row">
+                        <div key={entry.id} className="form-row mt-3 mb-3">
                             <div className="col-sm-6 col-lg-12">
                                 <div className="table-responsive">
                                     <table className="table table-bordered table-striped">
@@ -148,27 +180,39 @@ const Service = function (props) {
                         </div>
                     )
                 })}
-
-                <nav aria-label="Page navigation example">
-                    <ul className="pagination justify-content-center">
-                        <li className="page-item disabled">
-                            <button type="button" className="page-link" tabIndex="-1">Previous</button>
-                        </li>
-                        <li className="page-item active"><button type="button" className="page-link">1</button></li>
-                        <li className="page-item"><button type="button" className="page-link">2</button></li>
-                        <li className="page-item"><button type="button" className="page-link">3</button></li>
-                        <li className="page-item">
-                            <button type="button" className="page-link">Next</button>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+                {totalPages > 0 ?
+                    < nav aria-label="Page navigation example">
+                        <ul className="pagination justify-content-center">
+                            {activePage !== 1 ?
+                                <li className="page-item disabled">
+                                    <button type="button" className="page-link" tabIndex="-1">Previous</button>
+                                </li> : null
+                            }
+                            {[1, 2, 3].map(i => {
+                                return (
+                                    i <= totalPages ?
+                                        i === activePage ?
+                                            <li key={i} className="page-item active" > <button type="button" className="page-link">{i}</button></li> :
+                                            <li key={i} className="page-item"><button type="button" className="page-link">{i}</button></li> : null
+                                )
+                            })
+                            }
+                            {activePage !== totalPages ?
+                                <li className="page-item">
+                                    <button type="button" className="page-link">Next</button>
+                                </li> : null
+                            }
+                        </ul>
+                    </nav> : null
+                }
+            </div >
     )
 }
 const mapStateToProps = (state, ownProps) => {
     const { id } = ownProps
     const intId = JSON.parse(id);
-    // console.log(state.servicesReducer.services[id], id)
+    // console.log(intId)
+    console.log(state.servicesReducer.services[id], id)
     return {
         services: state.servicesReducer.services[id],
         stats: state.statsReducer.services_by_category[id]

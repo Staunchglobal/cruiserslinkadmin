@@ -5,11 +5,11 @@ const initialState = {
         1: { data: [], count: 0 },
         2: { data: [], count: 0 },
         3: { data: [], count: 0 },
-        4: { data: [], count: 0 },
         5: { data: [], count: 0 },
         6: { data: [], count: 0 },
         7: { data: [], count: 0 },
         8: { data: [], count: 0 },
+        9: { data: [], count: 0 },
     },
 }
 export const servicesReducer = function (state = initialState, action) {

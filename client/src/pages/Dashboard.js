@@ -1,24 +1,32 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { ServiceCategories, TIP_AND_TRICKS_META_DATA } from '../util/constants';
 import { useEffect, useState } from 'react';
 import { firestore } from '../services/base'
 import ClipLoader from 'react-spinners/ClipLoader'
-function Dashboard() {
+import { SetStats } from '../Redux/actions/actions';
+import { connect } from 'react-redux';
+function Dashboard(props) {
+  const { _setStats } = props
   const [stats, setStats] = useState(null);
+  const [loading,setLoading] = useState(true);
+  const history = useHistory();
   useEffect(async () => {
     try {
       const listener = firestore.collection('meta').doc('data').onSnapshot(snapshot => {
         setStats(snapshot.data());
+        _setStats(snapshot.data());
+        setLoading(false);
         console.log(snapshot.data())
       })
       return listener;
     } catch (err) {
-
+      console.log(err);
+      setLoading(false);
     }
   }, [])
   const { businesses, cruisers, users, services, tipsandtricks, services_by_category, tips_and_tricks_by_category } = stats ? stats : {}
   return (
-    stats ?
+    !loading ?
       <div>
         <h3 className="text-center">Admin Panel</h3>
         <ul className="list-group">
@@ -49,7 +57,7 @@ function Dashboard() {
                   })
                   // console.log(stringToShow)
                   return (
-                    <a key={serviceType.category_name} href={`/services/${serviceType.id}`} className="text-reset single-service">
+                    <Link key={serviceType.category_name} to={`/services/${serviceType.id}`} className="text-reset single-service">
                       <div className="service-img">
                         <img src={serviceType.thumb} alt="Boat" height="50" />
                         {pending > 0 ?
@@ -59,7 +67,7 @@ function Dashboard() {
                       <div className="mt-1">
                         {StringParts[0]} <br /> {stringToShow}
                       </div>
-                    </a>
+                    </Link>
                   )
                 })}
               </div>
@@ -84,7 +92,7 @@ function Dashboard() {
                       stringToShow += `${str.replace('&', '')} ${i == 0 ? '\n' : ' '}`
                   })
                   return (
-                    <a key={tipandtrick.category_name} href={`tips/${tipandtrick.id}`} className="text-reset single-service">
+                    <Link key={tipandtrick.category_name} to={`tips/${tipandtrick.id}`} className="text-reset single-service">
                       <div className="service-img">
                         <img src={tipandtrick.thumb} alt="Anchoring" height="50" />
                         {pending > 0 ?
@@ -95,7 +103,7 @@ function Dashboard() {
                         {/* {StringParts[0]} <br /> {stringToShow} */}
                         {tipandtrick.category_name}
                       </div>
-                    </a>
+                    </Link>
                   )
                 })}
               </div>
@@ -125,4 +133,10 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+const mapStateToProps = null
+const mapDispatchToProps = dispatch => {
+  return {
+    _setStats: function (stats) { dispatch(SetStats(stats)) }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

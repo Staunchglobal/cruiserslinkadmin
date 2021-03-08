@@ -807,7 +807,7 @@ export const CategoriesToName = {
     5: "Telecom",
     6: "Health",
     7: "Pets",
-    7: "Government & Customs",
+    8: "Government & Customs",
     9: "Miscellaneous",
 }
 export const SubCategoriesToName = {

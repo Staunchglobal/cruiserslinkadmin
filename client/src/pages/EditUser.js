@@ -1,4 +1,27 @@
-function EditUser() {
+import { useEffect, useState } from "react"
+import { connect } from "react-redux"
+import { useHistory, useParams } from "react-router"
+import { SetUsers } from "../Redux/actions/actions"
+
+function EditUser(props) {
+  const { id } = useParams()
+  const history = useHistory()
+  const { users, setUsers } = props
+  const [error, setError] = useState('')
+  const [errorType, setErrorType] = useState('danger')
+  const [loading, setLoading] = useState(false)
+  const [userData, setUserData] = useState({
+    businessData: {},
+    cruiserData: {},
+    userType: ''
+  })
+  useEffect(() => {
+    users.forEach(x => {
+      if (x.id === id) {
+        setUserData(x)
+      }
+    })
+  }, [id])
   return (
     <div className="d-flex justify-content-center">
       <div className="card w-100 mw-600">
@@ -6,6 +29,7 @@ function EditUser() {
           <div className="text-center">
             <h4 className="my-3">Edit User</h4>
           </div>
+
           <form>
             <div className="form-group">
               <label htmlFor="type">User Type</label>
@@ -52,5 +76,16 @@ function EditUser() {
     </div>
   );
 }
-
-export default EditUser;
+const mapStateToProps = state => {
+  return {
+    users: state.usersReducer.users,
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    setUsers: function (users) {
+      dispatch(SetUsers(users))
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(EditUser);

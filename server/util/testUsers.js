@@ -1,20 +1,20 @@
-const admin = require('firebase-admin');
+// const admin = require('firebase-admin');
 // const tipsAndTricks = require('./constants');
 
-// // admin.firestore().collection('Users').get().then(snapshot => {
-// //     console.log('Users -> ', snapshot.size)
-// //     console.log('Cruisers -> ', snapshot.docs.filter(x => x.data().userType === "cruiser").length)
-// //     console.log('Business -> ', snapshot.docs.filter(x => x.data().userType === "business").length)
-// // })
+// admin.firestore().collection('Users').get().then(snapshot => {
+//     console.log('Users -> ', snapshot.size)
+//     console.log('Cruisers -> ', snapshot.docs.filter(x => x.data().userType === "cruiser").length)
+//     console.log('Business -> ', snapshot.docs.filter(x => x.data().userType === "business").length)
+// })
 
-// // admin.firestore().collection('Services').get().then(snapshot => {
-// //     console.log('Services -> ', snapshot.size);
-// //     for (let i = 1; i < 10; i += 1) {
-// //         if (i !== 4) {
-// //             console.log(i, snapshot.docs.filter(y => y.data().Category === i).length);
-// //         }
-// //     }
-// // })
+// // // admin.firestore().collection('Services').get().then(snapshot => {
+// // //     console.log('Services -> ', snapshot.size);
+// // //     for (let i = 1; i < 10; i += 1) {
+// // //         if (i !== 4) {
+// // //             console.log(i, snapshot.docs.filter(y => y.data().Category === i).length);
+// // //         }
+// // //     }
+// // // })
 
 // const updateColumns = ['services_by_category', 'tips_and_tricks_by_category']
 
@@ -47,6 +47,6 @@ const admin = require('firebase-admin');
 //     serviceByCategory(z.id, z.category_name, 'TipsAndTricks', updateColumns[1], "category")
 // })
 
-admin.firestore().collection('TipsAndTricks').get().then(snapshot => {
-    console.log('Tips And Tricks -> ', snapshot.size);
-})
+// admin.firestore().collection('TipsAndTricks').get().then(snapshot => {
+//     console.log('Tips And Tricks -> ', snapshot.size);
+// })

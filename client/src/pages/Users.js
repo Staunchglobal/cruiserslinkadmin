@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { SetUsers } from '../Redux/actions/actions';
@@ -9,6 +9,7 @@ import Swal from 'sweetalert2'
 function Users(props) {
   const { users, setUsers } = props
   const { currentUser } = useAuth();
+  const [category, setCategory] = useState("all");
 
   useEffect(() => {
     if (users.length > 0) {
@@ -50,8 +51,20 @@ function Users(props) {
   return (
     <div>
       <h3 className="text-center mb-3">Users</h3>
-      <div className="form-row">
-        {users.map((user) => {
+      <div className="text-center">
+        <div className="dropdown">
+          <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {category.toUpperCase()}
+          </button>
+          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {category !== "all" ? <a className="dropdown-item" onClick={e => { e.preventDefault(); setCategory("all"); }} href="#">All</a> : null}
+            {category !== "cruiser" ? <a className="dropdown-item" onClick={e => { e.preventDefault(); setCategory("cruiser"); }} href="#">Cruiser</a> : null}
+            {category !== "business" ? <a className="dropdown-item" onClick={e => { e.preventDefault(); setCategory("business"); }} href="#">Business</a> : null}
+          </div>
+        </div>
+      </div>
+      <div className="form-row mt-4">
+        {users.filter(_user => category === "all" ? true : _user.userType === category).map((user) => {
           return (
             <div key={user.id} className="col-md-6 col-lg-4">
               <div className="table-responsive">
