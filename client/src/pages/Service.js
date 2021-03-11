@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react'
 import { SetServices } from '../Redux/actions/actions'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { firestore } from '../services/base'
+import { firestore, storage } from '../services/base'
 import { CategoriesToName, SubCategoriesToName } from '../util/constants'
+import Swal from 'sweetalert2'
 const names = ["Yacht Services", "Anchorages Marinas Boatyards", "Food & Drinks", "Tips & Tricks", "Telecom", "Health", "Pets", "Government && Customs", "Miscellanous", "Messaging"]
 const Service = function (props) {
     const { stats, services, id, setServices, limit } = props
@@ -11,9 +12,6 @@ const Service = function (props) {
     const [totalPages, setTotalPages] = useState(Math.floor(stats.total / limit) + 1);
     const [activePage, setActivePage] = useState(1);
     const [activeState, setActiveState] = useState("all");
-    useEffect(() => {
-        fetchServices();
-    }, [])
     useEffect(() => {
         if (activeState === "all") {
             setTotalPages(Math.floor(stats.total / limit) + 1); setActivePage(1);
@@ -25,6 +23,11 @@ const Service = function (props) {
             setTotalPages(Math.floor(stats.inactive / limit) + 1); setActivePage(1);
         }
     }, [activeState])
+
+    useEffect(() => {
+        fetchServices();
+        console.log('Runs Active Page Effect')
+    }, [activePage])
     const fetchServices = function () {
         if (services.data.length > 0) {
             firestore
@@ -35,12 +38,12 @@ const Service = function (props) {
                 .limit(limit)
                 .get()
                 .then(snapshot => {
-                    setServices(intId, snapshot.docs.map((doc, index) => {
+                    setServices(intId, [...snapshot.docs.map((doc, index) => {
                         return {
                             id: doc.id,
                             ...doc.data(),
                         }
-                    })
+                    }), ...services.data]
                     )
                 }).catch(err => {
                     console.log(err)
@@ -63,6 +66,43 @@ const Service = function (props) {
                     console.log(err)
                 })
         }
+    }
+
+    const handleDeleteService = function (event, id) {
+        event.preventDefault()
+        // console.log(id)
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will not be able to recover this service and all the reviews linked to it.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const storeRef = storage.ref(`ServiceImages/${id}`);
+                    await firestore.collection('Services').doc(id).delete();
+                    await firestore.collection('ServiceDetails').doc(id).delete();
+                    // await storeRef.delete();
+                    await Swal.fire({ title: 'Success', text: 'Service Deleted Successfully', icon: 'success' });
+                    setServices(intId, services.data.filter(x => x.id !== id));
+                } catch (err) {
+                    Swal.fire({ title: 'Error', text: err.message, icon: 'error' }).then((value) => { })
+                }
+            }
+        })
+    }
+
+    const EnableDisableService = function (id, value) {
+        firestore.collection('Services').doc(id).update({
+            ServiceStatus: value ? "active" : "inactive"
+        }).then(y => {
+            setServices(intId, services.data.map(x => x.id === id ? { ...x, ServiceStatus: value ? "active" : "inactive" } : x));
+            Swal.fire({ title: 'Success!', text: 'Service Changed Successfully', icon: 'success' }).then(_ => { })
+        }).catch(err => {
+            Swal.fire({ title: 'Error!', text: err.message, icon: 'error' }).then(_ => { })
+        })
     }
     const data = services.data.filter((_user, index) => {
         const typeFilter = activeState === "all" ? true : _user.ServiceStatus === activeState
@@ -112,7 +152,7 @@ const Service = function (props) {
                                     <table className="table table-bordered table-striped">
                                         <tbody>
                                             <tr>
-                                                <th colSpan="2" className="text-center">{entry.ProductName} ({index + 1})</th>
+                                                <th colSpan="2" className="text-center">{entry.ProductName}</th>
                                             </tr>
                                             <tr>
                                                 <th>Service Type</th>
@@ -164,19 +204,19 @@ const Service = function (props) {
                                             </tr>
                                             <tr>
                                                 <th>Ratings</th>
-                                                <td><Link to="/ratings">View Ratings</Link></td>
+                                                <td><Link to={`/ratings/service/${entry.id}`}>View Ratings</Link></td>
                                             </tr>
                                             <tr>
                                                 <th>Actions</th>
                                                 <td>
-                                                    <Link className="text-primary mr-3" to="/edit_service">Edit</Link>
+                                                    <Link className="text-primary mr-3" to={`/edit_service/${entry.Category}/${entry.id}`}>Edit</Link>
                                                     {entry.ServiceStatus === "pending" ?
-                                                        <Link className="text-primary mr-3" to="#">Approve</Link> :
+                                                        <Link onClick={e => { e.preventDefault(); EnableDisableService(entry.id, true); }} className="text-primary mr-3" to="#">Approve</Link> :
                                                         entry.ServiceStatus === "inactive" ?
-                                                            <Link className="text-success  mr-3" to="#">Activate</Link> :
-                                                            <Link className="text-danger mr-3" to='#'>Disable</Link>
+                                                            <Link onClick={e => { e.preventDefault(); EnableDisableService(entry.id, true); }} className="text-success  mr-3" to="#">Activate</Link> :
+                                                            <Link onClick={e => { e.preventDefault(); EnableDisableService(entry.id, false); }} className="text-danger mr-3" to='#'>Disable</Link>
                                                     }
-                                                    <Link to="Delete" className="text-danger mr-3">Delete</Link>
+                                                    <Link onClick={e => handleDeleteService(e, entry.id)} to="#" className="text-danger mr-3">Delete</Link>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -194,9 +234,9 @@ const Service = function (props) {
                                     <button onClick={e => { e.preventDefault(); setActivePage(activePage - 1); }} type="button" className="page-link" tabIndex="-1">Previous</button>
                                 </li> : null
                             }
-                            {[1, 2, 3].map(i => {
+                            {[activePage - 1, activePage, activePage + 1].map(i => {
                                 return (
-                                    i <= totalPages ?
+                                    i <= totalPages && i > 0 ?
                                         i === activePage ?
                                             <li key={i} className="page-item active" > <button type="button" className="page-link">{i}</button></li> :
                                             <li key={i} className="page-item"><button type="button" onClick={e => { e.preventDefault(); setActivePage(i); }} className="page-link">{i}</button></li> : null

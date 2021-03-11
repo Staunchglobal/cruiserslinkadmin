@@ -33,7 +33,7 @@ function MainComponent() {
           <PrivateRoute path="/users" component={Users} />
           <PrivateRoute path="/edit_user/:id" component={EditUser} />
           <PrivateRoute path="/services/:id" component={Services} />
-          <PrivateRoute path="/edit_service" component={EditService} />
+          <PrivateRoute path="/edit_service/:category/:id" component={EditService} />
           <PrivateRoute path="/tips/:id" component={TipsTricks} />
           <PrivateRoute path="/edit_tips" component={EditTipsTricks} />
           <PrivateRoute path="/claims" component={Claims} />

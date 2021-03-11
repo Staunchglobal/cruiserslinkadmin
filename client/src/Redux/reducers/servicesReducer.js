@@ -20,7 +20,7 @@ export const servicesReducer = function (state = initialState, action) {
             return Object.assign({}, state, {
                 services: {
                     ...state.services,
-                    [category]: { data: [...data, ...services], count: count + services.length },
+                    [category]: { data: services, count: services.length },
                 }
             })
         case RESET_SERVICES:

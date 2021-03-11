@@ -123,7 +123,7 @@ function Users(props) {
           <ClipLoader size={50} color="blue" /> :
           <button onClick={fetchUsers} className="btn btn-primary" type="button">
             Load More
-        </button>
+          </button>
         }
       </div>
     </div >
