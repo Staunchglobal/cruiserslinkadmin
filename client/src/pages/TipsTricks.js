@@ -9,7 +9,7 @@ function TipsTricks() {
   return (
     <div>
       <h3 className="text-center">Tips & Tricks</h3>
-      { id !== 0 ?
+      { intId !== 0 ?
         <TipAndTrick key={id} id={intId} limit={limit} /> :
         Object.keys(TipsAndTricksCategories).map(a => {
           return (
