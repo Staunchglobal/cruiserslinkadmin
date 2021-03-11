@@ -4,34 +4,50 @@ import { Link } from 'react-router-dom';
 import { SetUsers } from '../Redux/actions/actions';
 import { useAuth } from '../services/Auth';
 import { firestore } from '../services/base';
+import ClipLoader from 'react-spinners/ClipLoader'
 import Swal from 'sweetalert2'
 
 function Users(props) {
+  const limit = 15;
   const { users, setUsers } = props
   const { currentUser } = useAuth();
   const [category, setCategory] = useState("all");
+  const [loading, setLoading] = useState(false);
+  const [loadMore, setLoadMore] = useState(false);
 
   useEffect(() => {
+    fetchUsers();
+  }, [])
+
+  const fetchUsers = function () {
     if (users.length > 0) {
-      firestore.collection('Users').orderBy('__name__', 'asc').startAfter(users[users.length - 1].id).get().then(snapshot => {
+      setLoadMore(true);
+      firestore.collection('Users').orderBy('__name__', 'asc').limit(5).startAfter(users[users.length - 1].id).get().then(snapshot => {
         setUsers([...snapshot.docs.map(x => {
           return {
             id: x.id,
             ...x.data(),
           }
         }), ...users])
+        setLoadMore(false);
+      }).catch(err => {
+        setLoadMore(false);
       })
     } else {
-      firestore.collection('Users').orderBy('__name__', 'asc').get().then(snapshot => {
+      setLoading(true);
+      firestore.collection('Users').orderBy('__name__', 'asc').limit(limit).get().then(snapshot => {
         setUsers(snapshot.docs.map(x => {
           return {
             id: x.id,
             ...x.data(),
           }
         }))
+        setLoading(false);
+      }).catch(err => {
+        setLoading(false);
       })
     }
-  }, [])
+  }
 
   const ToggleEnableDisable = async function (id, value) {
     try {
@@ -63,7 +79,9 @@ function Users(props) {
           </div>
         </div>
       </div>
+      {loading && <div className="text-center mt-3 mb-3"><ClipLoader size={50} color="blue" /></div>}
       <div className="form-row mt-4">
+
         {users.filter(_user => category === "all" ? true : _user.userType === category).map((user) => {
           return (
             <div key={user.id} className="col-md-6 col-lg-4">
@@ -98,6 +116,15 @@ function Users(props) {
             </div>
           )
         })}
+      </div>
+
+      <div className="text-center">
+        {loadMore ?
+          <ClipLoader size={50} color="blue" /> :
+          <button onClick={fetchUsers} className="btn btn-primary" type="button">
+            Load More
+        </button>
+        }
       </div>
     </div >
   );
