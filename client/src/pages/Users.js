@@ -81,7 +81,6 @@ function Users(props) {
       </div>
       {loading && <div className="text-center mt-3 mb-3"><ClipLoader size={50} color="blue" /></div>}
       <div className="form-row mt-4">
-
         {users.filter(_user => category === "all" ? true : _user.userType === category).map((user) => {
           return (
             <div key={user.id} className="col-md-6 col-lg-4">
@@ -117,7 +116,6 @@ function Users(props) {
           )
         })}
       </div>
-
       <div className="text-center">
         {loadMore ?
           <ClipLoader size={50} color="blue" /> :

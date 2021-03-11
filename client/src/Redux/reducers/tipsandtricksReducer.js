@@ -13,8 +13,10 @@ export const tipsandtricksReducer = function (state = initialState, action) {
             const { tipsandtricks, category } = action.payload
             const { data, count } = state.tipsandtricks[category]
             return Object.assign({}, state, {
-                ...state.tipsandtricks,
-                [category]: { data: [...data, ...tipsandtricks], count: count + tipsandtricks.length }
+                tipsandtricks: {
+                    ...state.tipsandtricks,
+                    [category]: { data: tipsandtricks, count: tipsandtricks.length }
+                }
             })
         case RESET_TIPS_AND_TRICKS:
             return Object.assign({}, state, initialState)

@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
-import { SetServices } from '../Redux/actions/actions'
+import { SetTipAndTricks } from '../Redux/actions/actions'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { firestore, storage } from '../services/base'
-import { CategoriesToName, SubCategoriesToName } from '../util/constants'
+import { CategoriesToName, TipsAndTricksCategories, TipsAndTricksSubCategories } from '../util/constants'
 import Swal from 'sweetalert2'
-const names = ["Yacht Services", "Anchorages Marinas Boatyards", "Food & Drinks", "Tips & Tricks", "Telecom", "Health", "Pets", "Government && Customs", "Miscellanous", "Messaging"]
-const Service = function (props) {
-    const { stats, services, id, setServices, limit } = props
+const TipAndTrick = function (props) {
+    const { stats, tipsandtricks, id, setTipsAndTricks, limit } = props
     const intId = JSON.parse(id);
     const [totalPages, setTotalPages] = useState(Math.floor(stats.total / limit) + 1);
     const [activePage, setActivePage] = useState(1);
@@ -25,38 +24,42 @@ const Service = function (props) {
     }, [activeState])
 
     useEffect(() => {
-        fetchServices();
-        console.log('Runs Active Page Effect')
+        fetchTipsAndTricks();
+        console.log('Runs Active Page Effect on tips and tricks')
     }, [activePage])
-    const fetchServices = function () {
-        if (services.data.length > 0) {
+    const fetchTipsAndTricks = function () {
+        console.log('Here')
+        if (tipsandtricks.data.length > 0) {
+            console.log('Here More')
             firestore
-                .collection('Services')
-                .orderBy('DateSubmitted', 'desc')
-                .where('Category', '==', intId)
-                .startAfter(services.data[services.data.length - 1].DateSubmitted)
+                .collection('TipsAndTricks')
+                .orderBy('timePosted', 'desc')
+                .where('category', '==', intId)
+                .startAfter(tipsandtricks.data[tipsandtricks.data.length - 1].timePosted)
                 .limit(limit)
                 .get()
                 .then(snapshot => {
-                    setServices(intId, [...snapshot.docs.map((doc, index) => {
+                    setTipsAndTricks(intId, [...snapshot.docs.map((doc, index) => {
                         return {
                             id: doc.id,
                             ...doc.data(),
                         }
-                    }), ...services.data]
+                    }), ...tipsandtricks.data]
                     )
                 }).catch(err => {
                     console.log(err)
                 })
         } else {
+            console.log('Here First')
             firestore
-                .collection('Services')
-                .where('Category', '==', intId)
-                .orderBy('DateSubmitted', 'desc')
+                .collection('TipsAndTricks')
+                .where('category', '==', intId)
+                .orderBy('timePosted', 'desc')
                 .limit(limit)
                 .get()
                 .then(snapshot => {
-                    setServices(intId, snapshot.docs.map((doc, index) => {
+                    console.log(snapshot.docs)
+                    setTipsAndTricks(intId, snapshot.docs.map((doc, index) => {
                         return {
                             id: doc.id,
                             ...doc.data(),
@@ -68,12 +71,12 @@ const Service = function (props) {
         }
     }
 
-    const handleDeleteService = function (event, id) {
+    const handleDeleteTipAndTrick = function (event, id) {
         event.preventDefault()
         // console.log(id)
         Swal.fire({
             title: 'Are you sure?',
-            text: 'You will not be able to recover this service and all the reviews linked to it.',
+            text: 'You will not be able to recover this tip and trick and all the reviews linked to it.',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes',
@@ -81,12 +84,12 @@ const Service = function (props) {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const storeRef = storage.ref(`ServiceImages/${id}`);
-                    await firestore.collection('Services').doc(id).delete();
-                    await firestore.collection('ServiceDetails').doc(id).delete();
+                    // const storeRef = storage.ref(`ServiceImages/${id}`);
+                    await firestore.collection('TipsAndTricks').doc(id).delete();
+                    await firestore.collection('TipsAndTricksReviews').doc(id).delete();
                     // await storeRef.delete();
-                    await Swal.fire({ title: 'Success', text: 'Service Deleted Successfully', icon: 'success' });
-                    setServices(intId, services.data.filter(x => x.id !== id));
+                    await Swal.fire({ title: 'Success', text: 'Tip And Trick Deleted Successfully', icon: 'success' });
+                    setTipsAndTricks(intId, tipsandtricks.data.filter(x => x.id !== id));
                 } catch (err) {
                     Swal.fire({ title: 'Error', text: err.message, icon: 'error' }).then((value) => { })
                 }
@@ -94,18 +97,19 @@ const Service = function (props) {
         })
     }
 
-    const EnableDisableService = function (id, value) {
-        firestore.collection('Services').doc(id).update({
-            ServiceStatus: value ? "active" : "inactive"
+    const EnableDisableTipAndTrick = function (id, value) {
+        firestore.collection('TipsAndTricks').doc(id).update({
+            status: value ? "active" : "inactive"
         }).then(y => {
-            setServices(intId, services.data.map(x => x.id === id ? { ...x, ServiceStatus: value ? "active" : "inactive" } : x));
-            Swal.fire({ title: 'Success!', text: 'Service Changed Successfully', icon: 'success' }).then(_ => { })
+            setTipsAndTricks(intId, tipsandtricks.data.map(x => x.id === id ? { ...x, status: value ? "active" : "inactive" } : x));
+            Swal.fire({ title: 'Success!', text: 'Tip And Trick Changed Successfully', icon: 'success' }).then(_ => { })
         }).catch(err => {
             Swal.fire({ title: 'Error!', text: err.message, icon: 'error' }).then(_ => { })
         })
     }
-    const data = services.data.filter((_user, index) => {
-        const typeFilter = activeState === "all" ? true : _user.ServiceStatus === activeState
+    const data = tipsandtricks.data.filter((tip_and_trick, index) => {
+        // console.log(tip_and_trick.status)
+        const typeFilter = activeState === "all" ? true : tip_and_trick.status === activeState
         const pageFilter = ((index + 1) >= (activePage - 1 * limit)) && ((index + 1) < (activePage * limit))
         return typeFilter && pageFilter
     });
@@ -113,7 +117,7 @@ const Service = function (props) {
     return (
         data.length === 0 ?
             <div>
-                <h5 className="text-primary">{names[intId - 1]}</h5>
+                <h5 className="text-primary">{TipsAndTricksCategories[intId]}</h5>
                 <div className="dropdown">
                     <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {activeState.toUpperCase()}
@@ -127,12 +131,12 @@ const Service = function (props) {
                 </div>
                 <div className="form-row">
                     <div className="col">
-                        No Services Present Yet.
+                        No Tips And Tricks Present Yet.
                     </div>
                 </div>
             </div> :
             <div id="Yacht" className="id-div">
-                <h5 className="text-primary">{names[intId - 1]} ({activeState === "all" ? stats.total : activeState === "pending" ? stats.pending : activeState === "active" ? stats.active : stats.inactive})</h5>
+                <h5 className="text-primary">{TipsAndTricksCategories[intId]} ({activeState === "all" ? stats.total : activeState === "pending" ? stats.pending : activeState === "active" ? stats.active : stats.inactive})</h5>
                 <div className="dropdown">
                     <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {activeState.toUpperCase()}
@@ -152,35 +156,31 @@ const Service = function (props) {
                                     <table className="table table-bordered table-striped">
                                         <tbody>
                                             <tr>
-                                                <th colSpan="2" className="text-center">{entry.ProductName}</th>
+                                                <th colSpan="2" className="text-center">{entry.subject}</th>
                                             </tr>
                                             <tr>
-                                                <th>Service Type</th>
-                                                <td>{entry.ServiceType}</td>
+                                                <th>Description</th>
+                                                <td>{entry.description}</td>
                                             </tr>
                                             <tr>
                                                 <th>Category</th>
-                                                <td>{CategoriesToName[entry.Category]}</td>
+                                                <td>{TipsAndTricksCategories[entry.category]}</td>
                                             </tr>
                                             <tr>
                                                 <th>SubCategory</th>
-                                                <td>{SubCategoriesToName[entry.SubCategory]}</td>
+                                                <td>{entry.SubCategory ? TipsAndTricksSubCategories[entry.SubCategory] : '--'}</td>
                                             </tr>
                                             <tr>
-                                                <th>Service Attachments</th>
-                                                <td>{entry.ProductImagesCount}</td>
+                                                <th>Anonymous</th>
+                                                <td>{JSON.stringify(entry.anonymous)}</td>
                                             </tr>
                                             <tr>
-                                                <th>Service Description</th>
-                                                <td>{entry.ProductDescription}</td>
+                                                <th>Posted By Name</th>
+                                                <td>{entry.postedByName}</td>
                                             </tr>
                                             <tr>
-                                                <th>Pricing</th>
-                                                <td>{entry.Pricing}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Contact Number</th>
-                                                <td>{entry.ContactNumber}</td>
+                                                <th>Status</th>
+                                                <td>{entry.status}</td>
                                             </tr>
                                             <tr>
                                                 <th>Average Ratings</th>
@@ -191,32 +191,24 @@ const Service = function (props) {
                                                 <td>{entry.numRating}</td>
                                             </tr>
                                             <tr>
-                                                <th>Time</th>
-                                                <td>{`${entry.StartTime}:00 - ${entry.EndTime > 23 ? 0 : entry.EndTime}:00`}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Status</th>
-                                                <td>{entry.ServiceStatus}</td>
-                                            </tr>
-                                            <tr>
                                                 <th>Date Added</th>
-                                                <td>{entry.DateSubmitted.toDate().toString()}</td>
+                                                <td>{entry.timePosted.toDate().toString()}</td>
                                             </tr>
                                             <tr>
                                                 <th>Ratings</th>
-                                                <td><Link to={`/ratings/service/${entry.id}`}>View Ratings</Link></td>
+                                                <td><Link to={`/ratings/tipandtrick/${entry.id}`}>View Ratings</Link></td>
                                             </tr>
                                             <tr>
                                                 <th>Actions</th>
                                                 <td>
-                                                    <Link className="text-primary mr-3" to={`/edit_service/${entry.Category}/${entry.id}`}>Edit</Link>
-                                                    {entry.ServiceStatus === "pending" ?
-                                                        <Link onClick={e => { e.preventDefault(); EnableDisableService(entry.id, true); }} className="text-primary mr-3" to="#">Approve</Link> :
-                                                        entry.ServiceStatus === "inactive" ?
-                                                            <Link onClick={e => { e.preventDefault(); EnableDisableService(entry.id, true); }} className="text-success  mr-3" to="#">Activate</Link> :
-                                                            <Link onClick={e => { e.preventDefault(); EnableDisableService(entry.id, false); }} className="text-danger mr-3" to='#'>Disable</Link>
+                                                    <Link className="text-primary mr-3" to={`/edit_tips/${entry.category}/${entry.id}`}>Edit</Link>
+                                                    {entry.status === "pending" ?
+                                                        <Link onClick={e => { e.preventDefault(); EnableDisableTipAndTrick(entry.id, true); }} className="text-primary mr-3" to="#">Approve</Link> :
+                                                        entry.status === "inactive" ?
+                                                            <Link onClick={e => { e.preventDefault(); EnableDisableTipAndTrick(entry.id, true); }} className="text-success  mr-3" to="#">Activate</Link> :
+                                                            <Link onClick={e => { e.preventDefault(); EnableDisableTipAndTrick(entry.id, false); }} className="text-danger mr-3" to='#'>Disable</Link>
                                                     }
-                                                    <Link onClick={e => handleDeleteService(e, entry.id)} to="#" className="text-danger mr-3">Delete</Link>
+                                                    <Link onClick={e => handleDeleteTipAndTrick(e, entry.id)} to="#" className="text-danger mr-3">Delete</Link>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -257,18 +249,16 @@ const Service = function (props) {
 const mapStateToProps = (state, ownProps) => {
     const { id } = ownProps
     const intId = JSON.parse(id);
-    // console.log(intId)
-    // console.log(state.servicesReducer.services[id], id)
     return {
-        services: state.servicesReducer.services[id],
-        stats: state.statsReducer.services_by_category[id]
+        tipsandtricks: state.tipsandtricksReducer.tipsandtricks[intId],
+        stats: state.statsReducer.tips_and_tricks_by_category[intId]
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        setServices: function (category, services) {
-            dispatch(SetServices(category, services))
+        setTipsAndTricks: function (category, tipsandtricks) {
+            dispatch(SetTipAndTricks(category, tipsandtricks))
         }
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Service)
+export default connect(mapStateToProps, mapDispatchToProps)(TipAndTrick)

@@ -35,9 +35,9 @@ function MainComponent() {
           <PrivateRoute path="/services/:id" component={Services} />
           <PrivateRoute path="/edit_service/:category/:id" component={EditService} />
           <PrivateRoute path="/tips/:id" component={TipsTricks} />
-          <PrivateRoute path="/edit_tips" component={EditTipsTricks} />
+          <PrivateRoute path="/edit_tips/:category/:id" component={EditTipsTricks} />
           <PrivateRoute path="/claims" component={Claims} />
-          <PrivateRoute path="/ratings" component={Ratings} />
+          <PrivateRoute path="/ratings/:type/:id" component={Ratings} />
           <PrivateRoute path="/settings" component={Settings} />
           <OpenRoute path="/login" component={Login} />
           <OpenRoute path="/forgot-password" component={ForgotPassword} />
