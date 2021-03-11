@@ -31,7 +31,7 @@ function MainComponent() {
         <Switch>
           <PrivateRoute path="/" exact component={Dashboard} />
           <PrivateRoute path="/users" component={Users} />
-          <PrivateRoute path="/edit_user" component={EditUser} />
+          <PrivateRoute path="/edit_user/:id" component={EditUser} />
           <PrivateRoute path="/services/:id" component={Services} />
           <PrivateRoute path="/edit_service" component={EditService} />
           <PrivateRoute path="/tips/:id" component={TipsTricks} />

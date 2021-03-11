@@ -85,10 +85,10 @@ function Users(props) {
                     <tr>
                       <th>Actions</th>
                       <td>
-                        <Link to="/edit_user">Edit</Link>
+                        <Link to={`/edit_user/${user.id}`}>Edit</Link>
                         {user.disabled ?
-                          <Link onClick={e => ToggleEnableDisable(user.id, true)} to="#" className="ml-2">Enable</Link> :
-                          <Link onClick={e => ToggleEnableDisable(user.id, false)} to="#" className="text-danger ml-2">Disable</Link>
+                          <Link onClick={e => ToggleEnableDisable(user.id, false)} to="#" className="ml-2">Enable</Link> :
+                          <Link onClick={e => ToggleEnableDisable(user.id, true)} to="#" className="text-danger ml-2">Disable</Link>
                         }
                       </td>
                     </tr>

@@ -956,3 +956,11 @@ export const TipsAndTricksSubCategories = {
     39001: "General",
     39002: "Safety And Emergency",
 }
+
+export const Alert = function (type, message) {
+    return (
+        <div class={`alert alert-${type}`} role="alert">
+            {message}
+        </div>
+    )
+}

@@ -66,7 +66,7 @@ const Service = function (props) {
     }
     const data = services.data.filter((_user, index) => {
         const typeFilter = activeState === "all" ? true : _user.ServiceStatus === activeState
-        const pageFilter = index + 1 > (activePage - 1 * limit) && index + 1 < (activePage * limit)
+        const pageFilter = ((index + 1) >= (activePage - 1 * limit)) && ((index + 1) < (activePage * limit))
         return typeFilter && pageFilter
     });
     // console.log(activePage,totalPages)
@@ -112,7 +112,7 @@ const Service = function (props) {
                                     <table className="table table-bordered table-striped">
                                         <tbody>
                                             <tr>
-                                                <th colSpan="2" className="text-center">{entry.ProductName}</th>
+                                                <th colSpan="2" className="text-center">{entry.ProductName} ({index + 1})</th>
                                             </tr>
                                             <tr>
                                                 <th>Service Type</th>
@@ -169,8 +169,14 @@ const Service = function (props) {
                                             <tr>
                                                 <th>Actions</th>
                                                 <td>
-                                                    <Link to="/edit_service">Edit</Link>
-                                                    <Link to="Delete" className="text-danger ml-2">Delete</Link>
+                                                    <Link className="text-primary mr-3" to="/edit_service">Edit</Link>
+                                                    {entry.ServiceStatus === "pending" ?
+                                                        <Link className="text-primary mr-3" to="#">Approve</Link> :
+                                                        entry.ServiceStatus === "inactive" ?
+                                                            <Link className="text-success  mr-3" to="#">Activate</Link> :
+                                                            <Link className="text-danger mr-3" to='#'>Disable</Link>
+                                                    }
+                                                    <Link to="Delete" className="text-danger mr-3">Delete</Link>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -184,8 +190,8 @@ const Service = function (props) {
                     < nav aria-label="Page navigation example">
                         <ul className="pagination justify-content-center">
                             {activePage !== 1 ?
-                                <li className="page-item disabled">
-                                    <button type="button" className="page-link" tabIndex="-1">Previous</button>
+                                <li className="page-item">
+                                    <button onClick={e => { e.preventDefault(); setActivePage(activePage - 1); }} type="button" className="page-link" tabIndex="-1">Previous</button>
                                 </li> : null
                             }
                             {[1, 2, 3].map(i => {
@@ -193,13 +199,13 @@ const Service = function (props) {
                                     i <= totalPages ?
                                         i === activePage ?
                                             <li key={i} className="page-item active" > <button type="button" className="page-link">{i}</button></li> :
-                                            <li key={i} className="page-item"><button type="button" className="page-link">{i}</button></li> : null
+                                            <li key={i} className="page-item"><button type="button" onClick={e => { e.preventDefault(); setActivePage(i); }} className="page-link">{i}</button></li> : null
                                 )
                             })
                             }
                             {activePage !== totalPages ?
                                 <li className="page-item">
-                                    <button type="button" className="page-link">Next</button>
+                                    <button onClick={e => { e.preventDefault(); setActivePage(activePage + 1); }} type="button" className="page-link">Next</button>
                                 </li> : null
                             }
                         </ul>
@@ -212,7 +218,7 @@ const mapStateToProps = (state, ownProps) => {
     const { id } = ownProps
     const intId = JSON.parse(id);
     // console.log(intId)
-    console.log(state.servicesReducer.services[id], id)
+    // console.log(state.servicesReducer.services[id], id)
     return {
         services: state.servicesReducer.services[id],
         stats: state.statsReducer.services_by_category[id]

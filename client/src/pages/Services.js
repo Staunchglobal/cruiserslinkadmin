@@ -5,7 +5,7 @@ import Service from './Service';
 function Services() {
   const { id } = useParams();
   const intId = JSON.parse(id);
-  const limit = 5;
+  const limit = 15;
   return (
     <div>
       <h3 className="text-center">Services</h3>
