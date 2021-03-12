@@ -1,11 +1,11 @@
 const admin = require('firebase-admin');
 // const tipsAndTricks = require('./constants');
 
-admin.firestore().collection('Users').get().then(snapshot => {
-    console.log('Users -> ', snapshot.size)
-    console.log('Cruisers -> ', snapshot.docs.filter(x => x.data().userType === "cruiser").length)
-    console.log('Business -> ', snapshot.docs.filter(x => x.data().userType === "business").length)
-})
+// admin.firestore().collection('Users').get().then(snapshot => {
+//     console.log('Users -> ', snapshot.size)
+//     console.log('Cruisers -> ', snapshot.docs.filter(x => x.data().userType === "cruiser").length)
+//     console.log('Business -> ', snapshot.docs.filter(x => x.data().userType === "business").length)
+// })
 
 // admin.firestore().collection('Services').get().then(snapshot => {
 //     console.log('Services -> ', snapshot.size);
@@ -35,7 +35,7 @@ admin.firestore().collection('Users').get().then(snapshot => {
 //     })
 // }
 
-const names = ["Yacht", "Marinas", "Food & Drinks", "Tips And Tricks", "Telecom", "Health", "Pets", "Government && Customs", "Miscellanous", "Messaging"]
+// const names = ["Yacht", "Marinas", "Food & Drinks", "Tips And Tricks", "Telecom", "Health", "Pets", "Government && Customs", "Miscellanous", "Messaging"]
 // for (let i = 2; i < 10; i += 1) {
 //     if (i !== 4)
 //         serviceByCategory(i, names[i - 1], 'Services', updateColumns[0], "Category")

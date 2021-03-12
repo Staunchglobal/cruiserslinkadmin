@@ -21,5 +21,5 @@ admin
     .collection('mail')
     .add(createEmail(email, body))
     .then(snap => {
-        console.log(`Email Sent to ${email}`)
+        // console.log(`Email Sent to ${email}`)
     })

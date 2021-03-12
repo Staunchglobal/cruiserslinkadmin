@@ -26,7 +26,7 @@ const Service = function (props) {
 
     useEffect(() => {
         fetchServices();
-        console.log('Runs Active Page Effect')
+        // console.log('Runs Active Page Effect')
     }, [activePage])
     const fetchServices = function () {
         if (services.data.length > 0) {

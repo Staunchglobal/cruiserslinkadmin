@@ -55,7 +55,7 @@ function Settings() {
       setLoading(false); setErrorType('danger')
     }
   }
-  console.log(email)
+  // console.log(email)
   return (
     <div className="d-flex justify-content-center">
       <div className="card w-100 mw-600">

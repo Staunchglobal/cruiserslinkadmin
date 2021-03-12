@@ -25,12 +25,10 @@ const TipAndTrick = function (props) {
 
     useEffect(() => {
         fetchTipsAndTricks();
-        console.log('Runs Active Page Effect on tips and tricks')
+        // console.log('Runs Active Page Effect on tips and tricks')
     }, [activePage])
     const fetchTipsAndTricks = function () {
-        console.log('Here')
         if (tipsandtricks.data.length > 0) {
-            console.log('Here More')
             firestore
                 .collection('TipsAndTricks')
                 .orderBy('timePosted', 'desc')
@@ -50,7 +48,6 @@ const TipAndTrick = function (props) {
                     console.log(err)
                 })
         } else {
-            console.log('Here First')
             firestore
                 .collection('TipsAndTricks')
                 .where('category', '==', intId)
@@ -58,7 +55,6 @@ const TipAndTrick = function (props) {
                 .limit(limit)
                 .get()
                 .then(snapshot => {
-                    console.log(snapshot.docs)
                     setTipsAndTricks(intId, snapshot.docs.map((doc, index) => {
                         return {
                             id: doc.id,

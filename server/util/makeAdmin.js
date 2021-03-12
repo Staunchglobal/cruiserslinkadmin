@@ -4,7 +4,7 @@ const makeAdmin = function (uid) {
         .auth()
         .setCustomUserClaims(uid, { admin: true })
         .then(() => {
-            console.log(`Custom claim set for uid ${uid}`)
+            // console.log(`Custom claim set for uid ${uid}`)
         });
 }
 // const uidToMakeAdmin = 'yUy3Uqzj2VPmAKqw6AHhIbEFhep2'

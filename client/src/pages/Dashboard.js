@@ -16,7 +16,7 @@ function Dashboard(props) {
         setStats(snapshot.data());
         _setStats(snapshot.data());
         setLoading(false);
-        console.log(snapshot.data())
+        // console.log(snapshot.data())
       })
       return listener;
     } catch (err) {
