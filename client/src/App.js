@@ -14,6 +14,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import Search from './pages/Search';
 import Ratings from './pages/Ratings';
 import './App.css';
+import ClaimShow from './pages/ClaimFull'
 import '@fortawesome/fontawesome-free/css/all.css';
 import { AuthProvider, useAuth } from './services/Auth';
 import PrivateRoute from './util/PrivateRoute';
@@ -39,6 +40,7 @@ function MainComponent() {
           <PrivateRoute path="/claims" component={Claims} />
           <PrivateRoute path="/ratings/:type/:id" component={Ratings} />
           <PrivateRoute path="/settings" component={Settings} />
+          <PrivateRoute path="/claimshow/:claimId/:serviceId/:userId" component={ClaimShow} />
           <OpenRoute path="/login" component={Login} />
           <OpenRoute path="/forgot-password" component={ForgotPassword} />
           <PrivateRoute path="/search" component={Search} />
