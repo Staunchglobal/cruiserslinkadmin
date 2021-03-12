@@ -112,7 +112,7 @@ function Dashboard(props) {
           <Link to="/claims" className="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
             Claims
             <div>
-              <h5 className="d-inline-block mb-0">12</h5>
+              {/* <h5 className="d-inline-block mb-0">12</h5> */}
               <i className="fas fa-chevron-right link-arrow text-primary"></i>
             </div>
           </Link>
