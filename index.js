@@ -12,10 +12,11 @@ require('./server/util/showUsers')
 // require('./server/util/sendEmail')
 // require('./server/util/makeAdmin')
 // require('./Server/Services/FirebaseAdminService')
-require('./server/util/createIndex')
+// require('./server/util/createIndex')
 // require('./server/util/testUsers')
 // require('./Server/Routes/getUserData')(app)
 // require('./Server/Routes/getProjectsData')(app)
+require('./server/util/fullTextSearch')
 
 // app.use(function (req, res, next) {
 //     res.header("Access-Control-Allow-Origin", "http://localhost:5000/"); // update to match the domain you will make the request from

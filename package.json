@@ -17,6 +17,7 @@
     "express": "^4.17.1",
     "firebase-admin": "^9.5.0",
     "geofirex": "^0.1.0",
+    "meilisearch": "^0.18.1",
     "nodemon": "^2.0.7",
     "rxjs": "^6.6.6"
   }
