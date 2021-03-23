@@ -12,8 +12,8 @@ require('./server/util/showUsers')
 // require('./server/util/sendEmail')
 // require('./server/util/makeAdmin')
 // require('./Server/Services/FirebaseAdminService')
-
-require('./server/util/testUsers')
+require('./server/util/createIndex')
+// require('./server/util/testUsers')
 // require('./Server/Routes/getUserData')(app)
 // require('./Server/Routes/getProjectsData')(app)
 
