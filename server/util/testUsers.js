@@ -1,5 +1,5 @@
 const admin = require('firebase-admin');
-// const tipsAndTricks = require('./constants');
+const tipsAndTricks = require('./constants');
 
 // admin.firestore().collection('Users').get().then(snapshot => {
 //     console.log('Users -> ', snapshot.size)
@@ -16,26 +16,32 @@ const admin = require('firebase-admin');
 //     }
 // })
 
-// const updateColumns = ['services_by_category', 'tips_and_tricks_by_category']
+const updateColumns = ['services_by_category', 'tips_and_tricks_by_category']
 
-// const serviceByCategory = function (id, name, collection, updateColumn, column) {
-//     admin.firestore().collection(collection).where(column, '==', id).get().then(snapshot => {
-//         const objectToAdd = {
-//             total: snapshot.size,
-//         }
-//         const keys = ['pending', 'active', 'inactive']
-//         keys.forEach(y => {
-//             // console.log(y, ' -> ', snapshot.docs.filter(x => x.data().ServiceStatus === y).length)
-//             objectToAdd[y] = snapshot.docs.filter(x => x.data().ServiceStatus === y).length
-//         })
-//         console.log(name, ' -> ', objectToAdd.total)
-//         admin.firestore().collection('meta').doc('data').update({
-//             [`${updateColumn}.${id}`]: objectToAdd
-//         })
-//     })
-// }
+const serviceByCategory = function (id, name, collection, updateColumn, column) {
+    admin.firestore().collection(collection).where(column, '==', id).get().then(snapshot => {
+        const objectToAdd = {
+            total: snapshot.size,
+        }
+        const keys = ['pending', 'active', 'inactive']
+        console.log('\n')
+        keys.forEach(y => {
+            // console.log(y, ' -> ', snapshot.docs.filter(x => x.data().ServiceStatus === y).length)
+            const num = snapshot.docs.filter(x =>
+                collection === "TipsAndTricks" ?
+                    x.data().status === y :
+                    x.data().ServiceStatus === y).length
+            objectToAdd[y] = num
+            console.log(`${name}.${y}`, ' -> ', num)
+        })
+        console.log('\n')
+        admin.firestore().collection('meta').doc('data').update({
+            [`${updateColumn}.${id}`]: objectToAdd
+        })
+    })
+}
 
-// const names = ["Yacht", "Marinas", "Food & Drinks", "Tips And Tricks", "Telecom", "Health", "Pets", "Government && Customs", "Miscellanous", "Messaging"]
+const names = ["Yacht", "Marinas", "Food & Drinks", "Tips And Tricks", "Telecom", "Health", "Pets", "Government && Customs", "Miscellanous", "Messaging"]
 // for (let i = 2; i < 10; i += 1) {
 //     if (i !== 4)
 //         serviceByCategory(i, names[i - 1], 'Services', updateColumns[0], "Category")
