@@ -3,10 +3,13 @@ import { connect } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import Swal from "sweetalert2";
 import { SetTipAndTricks } from "../Redux/actions/actions";
+import { useAuth } from "../services/Auth";
 import { firestore } from "../services/base";
 import { TIP_AND_TRICKS_META_DATA } from "../util/constants";
+import { SendPushNotifications } from "../util/SendPushNotifications";
 
 function EditTipsTricks(props) {
+  const { currentUser } = useAuth();
   const { id, category } = useParams();
   const intCat = JSON.parse(category)
   const { tipsandtricks, setTipsAndTricks } = props
@@ -53,7 +56,8 @@ function EditTipsTricks(props) {
     try {
       await validateTipAndTrick();
       await firestore.collection('TipsAndTricks').doc(id).update(tipandtrickData);
-      setTipsAndTricks(intCat, tipsandtricks.data.map(x => x.id == id ? { ...x, ...tipandtrickData } : x))
+      setTipsAndTricks(intCat, tipsandtricks.data.map(x => x.id == id ? { ...x, ...tipandtrickData } : x));
+      await SendPushNotifications(currentUser.uid, tipandtrickData.postedBy, 'Tip And Trick Listing Updated by Admin', 'Your Tip And Trick has been updated by the CruisersLINK Admin');
       const response = await Swal.fire({ title: 'Success', text: 'Tip And Trick Updated Successfully', icon: 'success', confirmButtonText: 'Ok' })
       if (response.isConfirmed) history.goBack();
     } catch (err) {

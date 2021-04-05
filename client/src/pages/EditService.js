@@ -8,8 +8,11 @@ import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 import { firestore } from "../services/base";
 import Swal from "sweetalert2";
+import { SendPushNotifications } from "../util/SendPushNotifications";
+import { useAuth } from "../services/Auth";
 
 function EditService(props) {
+  const { currentUser } = useAuth();
   const { id, category } = useParams();
   const intCat = JSON.parse(category)
   const { services, setServices } = props
@@ -50,11 +53,14 @@ function EditService(props) {
         reject({ message: 'Service Category is not valid' })
       } else if (!SubCategory) {
         reject({ message: 'Service SubCategory is not valid' })
-      } else if (!ContactNumberValid) {
-        reject({ message: 'Service Contact Number is not valid' })
-      } else if (!Pricing) {
-        reject({ message: 'Service Pricing is not valid' })
-      } else if (!ServiceStatus) {
+      }
+      // else if (!ContactNumberValid) {
+      //   reject({ message: 'Service Contact Number is not valid' })
+      // }
+      // else if (!Pricing) {
+      //   reject({ message: 'Service Pricing is not valid' })
+      // }
+      else if (!ServiceStatus) {
         reject({ message: 'Service Status is not valid' })
       } else if (!ServiceType) {
         reject({ message: 'Service Type is not valid' })
@@ -69,7 +75,8 @@ function EditService(props) {
     try {
       await validateService();
       await firestore.collection('Services').doc(id).update(serviceData);
-      setServices(intCat, services.data.map(x => x.id == id ? { ...x, ...serviceData } : x))
+      setServices(intCat, services.data.map(x => x.id == id ? { ...x, ...serviceData } : x));
+      await SendPushNotifications(currentUser.uid, serviceData.PublishedBy, 'Your Service Listing Updated by Admin', 'Your Service has been updated by the CruisersLINK Admin');
       const response = await Swal.fire({ title: 'Success', text: 'Service Updated Successfully', icon: 'success', confirmButtonText: 'Ok' })
       if (response.isConfirmed) history.goBack();
     } catch (err) {
@@ -131,9 +138,21 @@ function EditService(props) {
                 <label htmlFor="description">Description</label>
                 <textarea value={ProductDescription} onChange={e => setServiceData({ ...serviceData, ProductDescription: e.target.value })} className="form-control" id="description" required></textarea>
               </div>
+
               <div className="form-group">
                 <label htmlFor="pricing">Pricing</label>
-                <input value={Pricing} onChange={e => setServiceData({ ...serviceData, Pricing: e.target.value })} type="text" className="form-control" id="pricing" required />
+                <select onChange={e => setServiceData({ ...serviceData, Pricing: e.target.value, })} value={Pricing} id="pricing" className="form-control custom-select">
+                  {[
+                    '$1 or more',
+                    '$$10 or more',
+                    '$$$100 or more',
+                    '$$$$1000 or more'
+                  ].map(price => {
+                    return (
+                      <option key={price} value={price}>{price}</option>
+                    )
+                  })}
+                </select>
               </div>
               <div className="form-group">
                 <label htmlFor="contact">Contact Number</label>

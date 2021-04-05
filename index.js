@@ -2,10 +2,14 @@ const express = require('express')
 const cors = require('cors')
 const path = require('path')
 const app = express()
+app.use(cors());
 app.use(express.static(path.join(__dirname, 'client/build')))
 app.use(require("body-parser").text());
 app.use(require('body-parser').urlencoded({ extended: false }));
 app.use(require('body-parser').json());
+require('./server/routes/enable_disable')(app)
+require('./server/routes/push_notifications')(app);
+
 // Loads the FirebaseAdmin Client from the credentials
 require('./server/services/FirebaseAdminService');
 // require('./server/util/showUsers')
@@ -23,8 +27,6 @@ require('./server/services/FirebaseAdminService');
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //     next();
 // });
-require('./server/routes/enable_disable')(app)
-require('./server/routes/push_notifications')(app);
 app.get('/favicon.ico', (req, res) => {
     res.sendFile(path.join(__dirname, '/client/public/favicon.ico'))
 })
