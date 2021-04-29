@@ -209,11 +209,16 @@ const Service = function (props) {
                                             <tr>
                                                 <th>Attachments</th>
                                                 <td>
-                                                    {entry.ProductImages.map(image => {
-                                                        return image ? <img src={image} class="img-thumbnail" alt="Cinque Terre">
+                                                    <div className="d-inline-block position-relative">
+                                                        {entry.ProductImages.map(image => {
+                                                            return image ? <img src={image} class="img-thumbnail" alt={entry.ProductName}>
 
-                                                        </img> : null
-                                                    })}
+                                                            </img> : null
+                                                        })}
+                                                        <Link title="Delete" class="img-delete">
+                                                            <i className="fas fa-trash-alt text-danger"></i>
+                                                        </Link>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr>
