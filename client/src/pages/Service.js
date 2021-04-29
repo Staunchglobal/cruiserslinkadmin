@@ -207,6 +207,16 @@ const Service = function (props) {
                                                 <td><Link to={`/ratings/service/${entry.id}`}>View Ratings</Link></td>
                                             </tr>
                                             <tr>
+                                                <th>Attachments</th>
+                                                <td>
+                                                    {entry.ProductImages.map(image => {
+                                                        return image ? <img src={image} class="img-thumbnail" alt="Cinque Terre">
+
+                                                        </img> : null
+                                                    })}
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <th>Actions</th>
                                                 <td>
                                                     <Link className="text-primary mr-3" to={`/edit_service/${entry.Category}/${entry.id}`}>Edit</Link>

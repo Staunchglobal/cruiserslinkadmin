@@ -41,17 +41,17 @@ const serviceByCategory = function (id, name, collection, updateColumn, column) 
     })
 }
 
-const names = ["Yacht", "Marinas", "Food & Drinks", "Tips And Tricks", "Telecom", "Health", "Pets", "Government && Customs", "Miscellanous", "Messaging"]
-// for (let i = 2; i < 10; i += 1) {
+// const names = ["Yacht", "Marinas", "Food & Drinks", "Tips And Tricks", "Telecom", "Health", "Pets", "Government && Customs", "Miscellanous", "Messaging"]
+// for (let i = 1; i < 10; i += 1) {
 //     if (i !== 4)
 //         serviceByCategory(i, names[i - 1], 'Services', updateColumns[0], "Category")
 // }
 
 // console.log('\n', '\n')
 
-// tipsAndTricks.forEach(z => {
-//     serviceByCategory(z.id, z.category_name, 'TipsAndTricks', updateColumns[1], "category")
-// })
+tipsAndTricks.forEach(z => {
+    serviceByCategory(z.id, z.category_name, 'TipsAndTricks', updateColumns[1], "category")
+})
 
 // admin.firestore().collection('TipsAndTricks').get().then(snapshot => {
 //     console.log('Tips And Tricks -> ', snapshot.size);
