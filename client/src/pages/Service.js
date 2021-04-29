@@ -68,6 +68,45 @@ const Service = function (props) {
         }
     }
 
+    const handleDeleteServiceImage = function (service, imageId) {
+        try {
+            Swal.fire({
+                title: 'Notice!',
+                text: 'Are you sure to want to delete this image Attachment? \n This action will be irrversible',
+                icon: 'question',
+                showCancelButton: true,
+                showConfirmButton: true,
+                confirmButtonText: 'Ok',
+                cancelButtonText: 'Cancel',
+            }).then(async result => {
+                try {
+                    if (result.isConfirmed) {
+                        await storage.ref(`ServiceImages/${service.id}/${imageId}`).delete();
+                        await firestore.collection('Services').doc(service.id).update({
+                            ProductImages: service.ProductImages.filter((img, imgIndex) => imgIndex !== imageId),
+                            ProductImagesCount: service.ProductImagesCount - 1,
+                        })
+                        setServices(intId, services.data.map((y, i) => {
+                            return y.id === service.id ?
+                                {
+                                    ...y,
+                                    ProductImages: y.ProductImages.filter((z, k) => k !== imageId),
+                                    ProductImagesCount: y.ProductImagesCount - 1
+                                }
+                                : y
+                        }))
+                        await Swal.fire({ title: 'Success', text: 'Service Attachment Removed Successfully!', icon: 'success' })
+                    }
+                } catch (err) {
+                    Swal.fire({ title: 'Error', text: err.message, icon: 'error' }).then(_ => { })
+                }
+            })
+
+        } catch (err) {
+
+        }
+    }
+
     const handleDeleteService = function (event, id) {
         event.preventDefault()
         // console.log(id)
@@ -210,14 +249,18 @@ const Service = function (props) {
                                                 <th>Attachments</th>
                                                 <td>
                                                     <div className="d-inline-block position-relative">
-                                                        {entry.ProductImages.map(image => {
-                                                            return image ? <img src={image} class="img-thumbnail" alt={entry.ProductName}>
+                                                        {entry.ProductImages.map((image, imageIndex) => {
+                                                            return image ?
+                                                                <div>
+                                                                    <img src={image} class="img-thumbnail" alt={entry.ProductName}>
 
-                                                            </img> : null
+                                                                    </img>
+                                                                    <Link title="Delete" class="img-delete" onClick={e => handleDeleteServiceImage(entry, imageIndex)}>
+                                                                        <i className="fas fa-trash-alt text-danger"></i>
+                                                                    </Link>
+                                                                </div> : null
                                                         })}
-                                                        <Link title="Delete" class="img-delete">
-                                                            <i className="fas fa-trash-alt text-danger"></i>
-                                                        </Link>
+
                                                     </div>
                                                 </td>
                                             </tr>
