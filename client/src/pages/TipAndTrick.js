@@ -37,12 +37,12 @@ const TipAndTrick = function (props) {
                 .limit(limit)
                 .get()
                 .then(snapshot => {
-                    setTipsAndTricks(intId, [...snapshot.docs.map((doc, index) => {
+                    setTipsAndTricks(intId, [...tipsandtricks.data, ...snapshot.docs.map((doc, index) => {
                         return {
                             id: doc.id,
                             ...doc.data(),
                         }
-                    }), ...tipsandtricks.data]
+                    })]
                     )
                 }).catch(err => {
                     console.log(err)

@@ -23,12 +23,12 @@ function Users(props) {
     if (users.length > 0) {
       setLoadMore(true);
       firestore.collection('Users').orderBy('__name__', 'asc').limit(5).startAfter(users[users.length - 1].id).get().then(snapshot => {
-        setUsers([...snapshot.docs.map(x => {
+        setUsers([...users, ...snapshot.docs.filter(y => y.id !== currentUser?.uid).map(x => {
           return {
             id: x.id,
             ...x.data(),
           }
-        }), ...users])
+        })])
         setLoadMore(false);
       }).catch(err => {
         setLoadMore(false);
@@ -36,7 +36,7 @@ function Users(props) {
     } else {
       setLoading(true);
       firestore.collection('Users').orderBy('__name__', 'asc').limit(limit).get().then(snapshot => {
-        setUsers(snapshot.docs.map(x => {
+        setUsers(snapshot.docs.filter(y => y.id !== currentUser?.uid).map(x => {
           return {
             id: x.id,
             ...x.data(),
