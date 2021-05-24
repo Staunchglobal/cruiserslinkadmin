@@ -38,12 +38,12 @@ const Service = function (props) {
                 .limit(limit)
                 .get()
                 .then(snapshot => {
-                    setServices(intId, [...snapshot.docs.map((doc, index) => {
+                    setServices(intId, [...services.data, ...snapshot.docs.map((doc, index) => {
                         return {
                             id: doc.id,
                             ...doc.data(),
                         }
-                    }), ...services.data]
+                    })]
                     )
                 }).catch(err => {
                     console.log(err)
