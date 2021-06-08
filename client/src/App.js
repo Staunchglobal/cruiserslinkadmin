@@ -16,13 +16,15 @@ import ForgotPassword from './pages/ForgotPassword';
 import Search from './pages/Search';
 import Ratings from './pages/Ratings';
 import './App.css';
+import 'mapbox-gl/dist/mapbox-gl.css'
 import ClaimShow from './pages/ClaimFull'
 import '@fortawesome/fontawesome-free/css/all.css';
 import { AuthProvider, useAuth } from './services/Auth';
 import PrivateRoute from './util/PrivateRoute';
 import OpenRoute from './util/OpenRoute';
-
-
+import mapboxgl from 'mapbox-gl'
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
+console.log(process.env)
 function MainComponent() {
   const { currentUser } = useAuth();
   // console.log(currentUser) 
@@ -37,10 +39,10 @@ function MainComponent() {
           <PrivateRoute path="/users" component={Users} />
           <PrivateRoute path="/edit_user/:id" component={EditUser} />
           <PrivateRoute path="/services/:id" component={Services} />
-          <PrivateRoute path="/serviceshow" component={ServiceShow} />
+          <PrivateRoute path="/serviceshow/:category/:serviceId" component={ServiceShow} />
           <PrivateRoute path="/edit_service/:category/:id" component={EditService} />
           <PrivateRoute path="/tips/:id" component={TipsTricks} />
-          <PrivateRoute path="/tiptrickshow" component={TipTrickShow} />
+          <PrivateRoute path="/tiptrickshow/:category/:tipandtrickid" component={TipTrickShow} />
           <PrivateRoute path="/edit_tips/:category/:id" component={EditTipsTricks} />
           <PrivateRoute path="/claims" component={Claims} />
           <PrivateRoute path="/ratings/:type/:id" component={Ratings} />

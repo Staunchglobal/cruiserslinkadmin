@@ -1,130 +1,255 @@
-function ServiceShow() {
-  
+import { useEffect, useRef, useState } from "react";
+import { connect } from "react-redux";
+import { useHistory, useParams } from "react-router";
+import { SetServices } from "../Redux/actions/actions";
+import ClipLoader from 'react-spinners/ClipLoader'
+import mapboxgl from 'mapbox-gl'
+import { firestore, storage } from "../services/base";
+import Swal from 'sweetalert2'
+import { Link } from "react-router-dom";
+import { CategoriesToName, SubCategoriesToName } from "../util/constants";
+// console.log(process.env)
+function ServiceShow(props) {
+  const [user, setUser] = useState(null)
+  const { category, serviceId } = useParams()
+  const { services, serviceData, setServices } = props
+  const intCat = JSON.parse(category)
+  const mapContainer = useRef(null);
+  const map = useRef(null);
+  const history = useHistory()
+
+  useEffect(() => {
+    console.log(intCat, serviceId, serviceData)
+    if (map.current) return; // initialize map only once
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current,
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [serviceData.LocationLongitude, serviceData.LocationLatitude],
+      zoom: 15,
+      interactive: false
+    });
+    fetchUser()
+    const marker = new mapboxgl.Marker({ color: 'green' })
+      .setLngLat([serviceData.LocationLongitude, serviceData.LocationLatitude])
+      .addTo(map.current);
+  }, [])
+
+  const fetchUser = function () {
+    firestore.collection('Users').doc(serviceData.PublishedBy).get().then(snap => {
+      setUser({ ...snap.data(), id: snap.id })
+    }).catch(err => {
+      Swal.fire({ title: 'Error!', text: err.message, cancelButtonText: 'Ok' }).then()
+    })
+  }
+
+  const handleDeleteService = function (event, id) {
+    event.preventDefault()
+    // console.log(id)
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this service and all the reviews linked to it.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const storeRef = storage.ref(`ServiceImages/${id}`);
+          await firestore.collection('Services').doc(id).delete();
+          await firestore.collection('ServiceDetails').doc(id).delete();
+          // await storeRef.delete();
+          await Swal.fire({ title: 'Success', text: 'Service Deleted Successfully', icon: 'success' });
+          setServices(intCat, services.data.filter(x => x.id !== id));
+          history.goBack()
+        } catch (err) {
+          Swal.fire({ title: 'Error', text: err.message, icon: 'error' }).then((value) => { })
+        }
+      }
+    })
+  }
+  const EnableDisableService = function (id, value) {
+    firestore.collection('Services').doc(id).update({
+      ServiceStatus: value ? "active" : "inactive"
+    }).then(y => {
+      setServices(intCat, services.data.map(x => x.id === id ? { ...x, ServiceStatus: value ? "active" : "inactive" } : x));
+      Swal.fire({ title: 'Success!', text: 'Service Changed Successfully', icon: 'success' }).then(_ => { })
+    }).catch(err => {
+      Swal.fire({ title: 'Error!', text: err.message, icon: 'error' }).then(_ => { })
+    })
+  }
   return (
-    <div>
-      <h3 className="text-center mt-3">Curacao Marine</h3>
-      <div className="id-div">
-        <div className="form-row mb-3">
-          <div className="col">
-            <div className="table-responsive">
-              <table className="table table-bordered table-striped">
-                <tbody>
-                  <tr>
-                    <th colSpan={2} className="text-center">Service Details</th>
-                  </tr>
-                  <tr>
-                    <th>Service Type</th>
-                    <td>Commercial</td>
-                  </tr>
-                  <tr>
-                    <th>Category</th>
-                    <td>Yacht Services</td>
-                  </tr>
-                  <tr>
-                    <th>SubCategory</th>
-                    <td />
-                  </tr>
-                  <tr>
-                    <th>Service Attachments</th>
-                    <td>1</td>
-                  </tr>
-                  <tr>
-                    <th>Service Description</th>
-                    <td>Storage, repairs, slips, hauling, painting, etc.</td>
-                  </tr>
-                  <tr>
-                    <th>Pricing</th>
-                    <td>$$10 or more</td>
-                  </tr>
-                  <tr>
-                    <th>Contact Number</th>
-                    <td>+59994658936</td>
-                  </tr>
-                  <tr>
-                    <th>Average Ratings</th>
-                    <td>0.00</td>
-                  </tr>
-                  <tr>
-                    <th>Total Ratings</th>
-                    <td>0</td>
-                  </tr>
-                  <tr>
-                    <th>Time</th>
-                    <td>9:00 - 17:00</td>
-                  </tr>
-                  <tr>
-                    <th>Status</th>
-                    <td>active</td>
-                  </tr>
-                  <tr>
-                    <th>Date Added</th>
-                    <td>Fri Jun 04 2021 18:01:41 GMT+0500 (Pakistan Standard Time)</td>
-                  </tr>
-                  <tr>
-                    <th>Ratings</th>
-                    <td><a href="#">View Ratings</a></td>
-                  </tr>
-                  <tr>
-                    <th>Attachments</th>
-                    <td>
-                      <div className="d-inline-block position-relative">
-                        <div>
-                          <img src="https://firebasestorage.googleapis.com/v0/b/cruisersadvisor.appspot.com/o/ServiceImages%2F46a09536-dd09-44d4-a788-64a45a574f14%2F0?alt=media&token=8867b662-b73d-4ed1-811c-4ce750f72902" className="img-thumbnail" alt="Na" />
-                          <a href="#" title="Delete" className="img-delete">
-                            <i className="fas fa-trash-alt text-danger" />
-                          </a>
+    !serviceData ?
+      <div className="text-center">
+        <ClipLoader size={60} color="blue" />
+      </div> :
+      <div>
+        <h3 className="text-center mt-3">{serviceData.ProductName}</h3>
+        <div className="id-div">
+          <div className="form-row mb-3">
+            <div className="col">
+              <div className="table-responsive">
+                <table className="table table-bordered table-striped">
+                  <tbody>
+                    <tr>
+                      <th colSpan={2} className="text-center">Service Details</th>
+                    </tr>
+                    <tr>
+                      <th>Service Type</th>
+                      <td>{serviceData.ServiceType}</td>
+                    </tr>
+                    <tr>
+                      <th>Category</th>
+                      <td>{CategoriesToName[serviceData.Category]}</td>
+                    </tr>
+                    <tr>
+                      <th>SubCategory</th>
+                      <td>{SubCategoriesToName[serviceData.SubCategory]}</td>
+                    </tr>
+                    <tr>
+                      <th>Service Attachments</th>
+                      <td>{serviceData.ProductImagesCount}</td>
+                    </tr>
+                    <tr>
+                      <th>Service Description</th>
+                      <td>{serviceData.ProductDescription}</td>
+                    </tr>
+                    <tr>
+                      <th>Pricing</th>
+                      <td>{serviceData.Pricing}</td>
+                    </tr>
+                    <tr>
+                      <th>Contact Number</th>
+                      <td>{serviceData.ContactNumber}</td>
+                    </tr>
+                    <tr>
+                      <th>Average Ratings</th>
+                      <td>{serviceData.avgRating}</td>
+                    </tr>
+                    <tr>
+                      <th>Total Ratings</th>
+                      <td>{serviceData.numRating}</td>
+                    </tr>
+                    <tr>
+                      <th>Time</th>
+                      <td>{serviceData.StartTime}:00 - {serviceData.EndTime}:00</td>
+                    </tr>
+                    <tr>
+                      <th>Status</th>
+                      <td>{serviceData.ServiceStatus}</td>
+                    </tr>
+                    <tr>
+                      <th>{ }</th>
+                      <td>{serviceData.DateSubmitted.toDate().toString()}</td>
+                    </tr>
+                    <tr>
+                      <th>Ratings</th>
+                      <td><Link to={`/ratings/service/${serviceData.id}`}>View Ratings</Link></td>
+                    </tr>
+                    <tr>
+                      <th>Attachments</th>
+                      <td>
+                        <div className="d-inline-block position-relative">
+                          {serviceData.ProductImages.map((image, imageIndex) => {
+                            return image ?
+                              <div>
+                                <img src={image} class="img-thumbnail" alt={serviceData.ProductName}>
+
+                                </img>
+                                <Link title="Delete" class="img-delete"
+                                // onClick={e => handleDeleteServiceImage(serviceData, imageIndex)}
+                                >
+                                  <i className="fas fa-trash-alt text-danger"></i>
+                                </Link>
+                              </div> : null
+                          })}
+
                         </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>Actions</th>
-                    <td>
-                      <a className="text-primary mr-3" href="#">Edit</a><a className="text-danger mr-3" href="#">Disable</a>
-                      <a className="text-danger mr-3" href="#">Delete</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Actions</th>
+                      <td>
+                        <Link className="text-primary mr-3" to={`/edit_service/${serviceData.Category}/${serviceData.id}`}>Edit</Link>
+                        {serviceData.ServiceStatus === "pending" ?
+                          <Link
+                            onClick={e => { e.preventDefault(); EnableDisableService(serviceData.id, true); }}
+                            className="text-primary mr-3" to="#">Approve</Link> :
+                          serviceData.ServiceStatus === "inactive" ?
+                            <Link
+                              onClick={e => { e.preventDefault(); EnableDisableService(serviceData.id, true); }}
+                              className="text-success  mr-3" to="#">Activate</Link> :
+                            <Link
+                              onClick={e => { e.preventDefault(); EnableDisableService(serviceData.id, false); }}
+                              className="text-danger mr-3" to='#'>Disable</Link>
+                        }
+                        <Link
+                          onClick={e => handleDeleteService(e, serviceData.id)}
+                          to="#"
+                          className="text-danger mr-3">Delete</Link>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
+          {user ?
+            <div className="form-row mt-3 mb-3">
+              <div className="col">
+                <div className="table-responsive">
+                  <table className="table table-bordered table-striped">
+                    <tbody>
+                      <tr>
+                        <th colSpan={2} className="text-center">User Details</th>
+                      </tr>
+                      <tr>
+                        <th>Name</th>
+                        <td>{user.fullName}</td>
+                      </tr>
+                      <tr>
+                        <th>Email</th>
+                        <td>{user.email}</td>
+                      </tr>
+                      <tr>
+                        <th>User Type</th>
+                        <td>{user.userType}</td>
+                      </tr>
+                      {
+                        user?.cruiserData?.BoatName ?
+                          <tr>
+                            <th>Boat Name</th>
+                            <td>{user?.cruiserData?.BoatName}</td>
+                          </tr> : null
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div> : null
+          }
         </div>
-        <div className="form-row mt-3 mb-3">
-          <div className="col">
-            <div className="table-responsive">
-              <table className="table table-bordered table-striped">
-                <tbody>
-                  <tr>
-                    <th colSpan={2} className="text-center">User Details</th>
-                  </tr>
-                  <tr>
-                    <th>Name</th>
-                    <td>User 1</td>
-                  </tr>
-                  <tr>
-                    <th>Email</th>
-                    <td>user1@test.com</td>
-                  </tr>
-                  <tr>
-                    <th>User Type</th>
-                    <td>Cruiser</td>
-                  </tr>
-                  <tr>
-                    <th>Actions</th>
-                    <td>
-                      <a className="text-primary mr-3" href="#">Edit</a><a className="text-danger mr-3" href="#">Disable</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+        <div>
+          <div ref={mapContainer} className="map-container" />
         </div>
       </div>
-      <iframe className="iframe-map" src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d27217.031659997225!2d74.32309205556929!3d31.49313900252803!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x3919037e77334edf%3A0xb899f6f639f1db66!2sLahore%20British%20School%2C%20Ghazali%20Park%2C%20Wadat%20Colony%2C%20Combo%20Colony%2C%20Lahore%2C%20Punjab%2054000%2C%20Pakistan!3m2!1d31.5194731!2d74.3097602!4m5!1s0x391905c3ff7c1273%3A0x13cd1a467c901f96!2sSystem%20Plus%2C%20D.H.A.%20Main%20Boulevard%2C%20New%20Super%20Town%20Lahore!3m2!1d31.494517899999998!2d74.37633129999999!5e0!3m2!1sen!2s!4v1623119877224!5m2!1sen!2s" width={100} height={450} style={{border: 0}} allowFullScreen loading="lazy" />
-    </div>
 
   );
 }
-
-export default ServiceShow;
+const mapStateToProps = (state, ownProps) => {
+  // console.log(ownProps)
+  const { category, serviceId } = ownProps.match.params
+  const intcat = JSON.parse(category)
+  return {
+    services: state.servicesReducer.services[intcat],
+    serviceData: state.servicesReducer.services[intcat].data.find(service => service.id === serviceId)
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    setServices: function (category, services) {
+      dispatch(SetServices(category, services))
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ServiceShow);

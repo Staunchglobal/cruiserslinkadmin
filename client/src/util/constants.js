@@ -7,6 +7,8 @@ import Miscellanous from '../images/Miscellanous.svg';
 import Pets from '../images/Pets.svg';
 import Telecom from '../images/Telecom.svg';
 import Messaging from '../images/Messaging.png';
+import Destination_Info from '../images/destination_info.png'
+import PlacesOfInterest from '../images/places_of_interest.png'
 import Anchoring from '../images/Anchoring.png';
 import Antifouling from '../images/Antifouling.png';
 import BadWeather from '../images/BadWeather.png';
@@ -80,6 +82,16 @@ export const ServiceCategories = [
                 "id": 102
             },
             {
+                "sub_category_name": "Marinas",
+                "sub_category_key": "marinas",
+                "id": 116
+            },
+            {
+                "sub_category_name": "Boatyards",
+                "sub_category_key": "boatyards",
+                "id": 117
+            },
+            {
                 "sub_category_name": "Rubbish Disposals",
                 "sub_category_key": "rubbish_disposals",
                 "id": 103
@@ -143,26 +155,61 @@ export const ServiceCategories = [
                 "sub_category_name": "Electrical Services Including Watermakers",
                 "sub_category_key": "electrical_services_incl_watermaker",
                 "id": 115
-            }
+            },
+            {
+                "sub_category_name": "VHF And Net",
+                "sub_category_key": "vhf_and_net",
+                "id": 118
+            },
+            {
+                "sub_category_name": "Propane",
+                "sub_category_key": "propane",
+                "id": 119
+            },
+            {
+                "sub_category_name": "Insurance",
+                "sub_category_key": "insurance",
+                "id": 120
+            },
+            {
+                "sub_category_name": "Provisioning",
+                "sub_category_key": "provisioning",
+                "id": 121
+            },
+            {
+                "sub_category_name": "Refrigeration",
+                "sub_category_key": "refrigeration",
+                "id": 122
+            },
+            {
+                "sub_category_name": "Boat Brokrages",
+                "sub_category_key": "boat_brokrages",
+                "id": 123
+            },
         ]
     },
     {
         "id": 2,
         "thumb": Marinas,
-        "category_name": "Anchorages Marinas Boatyards",
-        "category_key": "anchorages_marinas_boatyard",
+        "category_name": "Anchorages",
+        "category_key": "anchorages",
         "num_sub_categories": 2,
         "sub_categories": [
+            // {
+            //     "sub_category_name": "Marina's",
+            //     "sub_category_key": "marinas",
+            //     "id": 201
+            // },
+            // {
+            //     "sub_category_name": "Boatyards",
+            //     "sub_category_key": "boatyards",
+            //     "id": 202
+            // },
             {
-                "sub_category_name": "Marina's",
-                "sub_category_key": "marinas",
-                "id": 201
+                "sub_category_name": "Anchorages",
+                "sub_category_key": "anchorages",
+                "id": 203
             },
-            {
-                "sub_category_name": "Boatyards",
-                "sub_category_key": "boatyards",
-                "id": 202
-            }
         ]
     },
     {
@@ -204,21 +251,46 @@ export const ServiceCategories = [
     },
     {
         "id": 5,
-        "thumb": Telecom,
-        "category_name": "Telecom",
-        "category_key": "telecommunications",
+        "thumb": Destination_Info,
+        "category_name": "Destination Info",
+        "category_key": "destination_info",
         "num_sub_categories": 2,
         "sub_categories": [
             {
-                "sub_category_name": "Mobile & Internet Services",
-                "sub_category_key": "mobile_internet_services",
+                "sub_category_name": "History",
+                "sub_category_key": "history",
                 "id": 501
             },
             {
-                "sub_category_name": "Satellite Services",
-                "sub_category_key": "satellite_services",
+                "sub_category_name": "Contact Information",
+                "sub_category_key": "contact_information",
                 "id": 502
-            }
+            },
+            {
+                "sub_category_name": "National Holidays",
+                "sub_category_key": "national_holidays",
+                "id": 503
+            },
+            {
+                "sub_category_name": "Language & Currency",
+                "sub_category_key": "language_and_currency",
+                "id": 504
+            },
+            {
+                "sub_category_name": "Airports",
+                "sub_category_key": "airports",
+                "id": 505
+            },
+            {
+                "sub_category_name": "Markets",
+                "sub_category_key": "markets",
+                "id": 506
+            },
+            {
+                "sub_category_name": "Visa Requirements",
+                "sub_category_key": "visa_requirements",
+                "id": 507
+            },
         ]
     },
     {
@@ -246,32 +318,32 @@ export const ServiceCategories = [
             {
                 "sub_category_name": "Dentist",
                 "sub_category_key": "dentist",
-                "id": 804
+                "id": 604
             }
         ]
     },
     {
         "id": 7,
-        "thumb": Pets,
-        "category_name": "Pets",
-        "category_key": "pets",
+        "thumb": PlacesOfInterest,
+        "category_name": "Places Of Interest",
+        "category_key": "places_of_interest",
         "num_sub_categories": 3,
         "sub_categories": [
-            {
-                "sub_category_name": "Veterinary Services",
-                "sub_category_key": "veterinary_services",
-                "id": 701
-            },
-            {
-                "sub_category_name": "Pet Suppliers",
-                "sub_category_key": "pet_suppliers",
-                "id": 702
-            },
-            {
-                "sub_category_name": "Adopt a pet",
-                "sub_category_key": "adopt_a_pet",
-                "id": 703
-            }
+            // {
+            //     "sub_category_name": "Veterinary Services",
+            //     "sub_category_key": "veterinary_services",
+            //     "id": 701
+            // },
+            // {
+            //     "sub_category_name": "Pet Suppliers",
+            //     "sub_category_key": "pet_suppliers",
+            //     "id": 702
+            // },
+            // {
+            //     "sub_category_name": "Adopt a pet",
+            //     "sub_category_key": "adopt_a_pet",
+            //     "id": 703
+            // }
         ]
     },
     {
@@ -290,6 +362,11 @@ export const ServiceCategories = [
                 "sub_category_name": "Coast Guard",
                 "sub_category_key": "coast_guard",
                 "id": 802
+            },
+            {
+                "sub_category_name": "Cruising Permits",
+                "sub_category_key": "cruising_permits",
+                "id": 803
             },
             // {
             //     "sub_category_name": "Anchoring",
@@ -344,7 +421,38 @@ export const ServiceCategories = [
                 "sub_category_name": "Taxi / Bus Service",
                 "sub_category_key": "taxi_bus_service",
                 "id": 908
+            },
+            {
+                "sub_category_name": "Veterinary Services",
+                "sub_category_key": "veterinary_services",
+                "id": 909
+            },
+            {
+                "sub_category_name": "Pet Suppliers",
+                "sub_category_key": "pet_suppliers",
+                "id": 910
+            },
+            {
+                "sub_category_name": "Adopt a pet",
+                "sub_category_key": "adopt_a_pet",
+                "id": 911
+            },
+            {
+                "sub_category_name": "Mobile & Internet Services",
+                "sub_category_key": "mobile_internet_services",
+                "id": 912
+            },
+            {
+                "sub_category_name": "Satellite Services",
+                "sub_category_key": "satellite_services",
+                "id": 913
+            },
+            {
+                "sub_category_name": "Banks And ATMs",
+                "sub_category_key": "banks_and_atms",
+                "id": 914
             }
+
         ]
     },
     {
@@ -355,7 +463,6 @@ export const ServiceCategories = [
         "num_sub_categories": 0,
         "sub_categories": []
     }
-
 ]
 
 export const TIP_AND_TRICKS_META_DATA = [
@@ -804,15 +911,17 @@ export const CategoriesToName = {
     1: "Yacht Services",
     2: "Marinas Anchorages and Boatyards",
     3: "Food & Drinks",
-    5: "Telecom",
+    5: "Destination Info",
     6: "Health",
-    7: "Pets",
+    7: "Places Of Interest",
     8: "Government & Customs",
     9: "Miscellaneous",
 }
 export const SubCategoriesToName = {
     101: "Chandleries",
     102: "Dinghy Dock’s",
+    116: "Marinas",
+    117: "Boatyards",
     103: "Rubbish Disposals",
     104: "Sailmaker / Canvas",
     105: "Laundry",
@@ -826,23 +935,31 @@ export const SubCategoriesToName = {
     113: "Engineering Services",
     114: "Mechanical Services",
     115: "Electrical Services Including Watermakers",
-    201: "Marina's",
-    202: "Boatyards",
+    118: "VHF And Net",
+    119: "Propane",
+    120: "Insurance",
+    121: "Provisioning",
+    122: "Refrigeration",
+    123: "Boat Brokrages",
+    203: "Anchorages",
     301: "Super Markets",
     302: "Bars",
     303: "Restaurants",
     304: "Happy Hours",
-    501: "Mobile & Internet Services",
-    502: "Satellite Services",
+    501: "History",
+    502: "Contact Information",
+    503: "National Holidays",
+    504: "Language & Currency",
+    505: "Airports",
+    506: "Markets",
+    507: "Visa Requirements",
     601: "Doctors",
     602: "Hospitals",
     603: "Pharmacies",
-    804: "Dentist",
-    701: "Veterinary Services",
-    702: "Pet Suppliers",
-    703: "Adopt a pet",
+    604: "Dentist",
     801: "Clear In / Out",
     802: "Coast Guard",
+    803: "Cruising Permits",
     901: "Business Services",
     902: "Sewing",
     903: "Appliances",
@@ -851,6 +968,12 @@ export const SubCategoriesToName = {
     906: "Local Events",
     907: "Fitness / Gyms / Running & Hiking Trails",
     908: "Taxi / Bus Service",
+    909: "Veterinary Services",
+    910: "Pet Suppliers",
+    911: "Adopt a pet",
+    912: "Mobile & Internet Services",
+    913: "Satellite Services",
+    914: "Banks And ATMs",
 }
 
 export const TipsAndTricksCategories = {

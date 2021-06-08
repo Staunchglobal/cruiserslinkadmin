@@ -207,6 +207,10 @@ const TipAndTrick = function (props) {
                                                     <Link onClick={e => handleDeleteTipAndTrick(e, entry.id)} to="#" className="text-danger mr-3">Delete</Link>
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <th>View Full Tip And Trick</th>
+                                                <td><Link to={`/tiptrickshow/${entry.category}/${entry.id}`}>View Tip And Trick</Link></td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

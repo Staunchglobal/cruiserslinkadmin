@@ -58,3 +58,7 @@
     transform: rotate(360deg);
   }
 }
+
+.map-container {
+  height: 400px;
+}
