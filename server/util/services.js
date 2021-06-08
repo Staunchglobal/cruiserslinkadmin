@@ -2,7 +2,7 @@ require('dotenv').config()
 const fs = require('fs')
 const admin = require('firebase-admin')
 const fetch = require('node-fetch')
-console.log(process.env.MAPBOX_ACCESS_TOKEN)
+// console.log(process.env.MAPBOX_ACCESS_TOKEN)
 const MAPBOX_URI = function (longitude, latitude) {
     return `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${process.env.MAPBOX_ACCESS_TOKEN}`
 }

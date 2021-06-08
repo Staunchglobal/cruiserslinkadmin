@@ -24,7 +24,7 @@ import PrivateRoute from './util/PrivateRoute';
 import OpenRoute from './util/OpenRoute';
 import mapboxgl from 'mapbox-gl'
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
-console.log(process.env)
+// console.log(process.env)
 function MainComponent() {
   const { currentUser } = useAuth();
   // console.log(currentUser) 

@@ -19,7 +19,7 @@ function ServiceShow(props) {
   const history = useHistory()
 
   useEffect(() => {
-    console.log(intCat, serviceId, serviceData)
+    // console.log(intCat, serviceId, serviceData)
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
