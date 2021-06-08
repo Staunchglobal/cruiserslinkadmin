@@ -13,7 +13,7 @@ const replaceByWith = [
 replaceByWith.forEach(replace => {
     admin
         .firestore()
-        .collection('Services')
+        .collection('ServiceLocations')
         .where('Category', '==', replace.beforeCategory)
         .where('SubCategory', '==', replace.beforeSubCategory)
         .get()
@@ -22,7 +22,7 @@ replaceByWith.forEach(replace => {
             data.forEach(updatedDoc => {
                 admin
                     .firestore()
-                    .collection('Services')
+                    .collection('ServiceLocations')
                     .doc(updatedDoc.id)
                     .update({
                         Category: replace.afterCategory,

@@ -329,6 +329,11 @@ export const ServiceCategories = [
         "category_key": "places_of_interest",
         "num_sub_categories": 3,
         "sub_categories": [
+            {
+                "sub_category_name": "Places Of Interest",
+                "sub_category_key": "places_of_interest",
+                "id": 701
+            },
             // {
             //     "sub_category_name": "Veterinary Services",
             //     "sub_category_key": "veterinary_services",
@@ -957,6 +962,7 @@ export const SubCategoriesToName = {
     602: "Hospitals",
     603: "Pharmacies",
     604: "Dentist",
+    701: "Places Of Interest",
     801: "Clear In / Out",
     802: "Coast Guard",
     803: "Cruising Permits",
