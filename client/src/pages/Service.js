@@ -186,7 +186,7 @@ const Service = function (props) {
                 {data.map((entry, index) => {
                     return (
                         <div key={entry.id} className="form-row mt-3 mb-3">
-                            <div className="col-sm-6 col-lg-12">
+                            <div className="col">
                                 <div className="table-responsive">
                                     <table className="table table-bordered table-striped">
                                         <tbody>

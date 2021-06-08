@@ -1,10 +1,12 @@
 import Header from './pages/Header';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Services from './pages/Services'
+import ServiceShow from './pages/ServiceShow'
 import EditService from './pages/EditService'
 import Users from './pages/Users'
 import EditUser from './pages/EditUser'
 import TipsTricks from './pages/TipsTricks'
+import TipTrickShow from './pages/TipTrickShow'
 import EditTipsTricks from './pages/EditTipsTricks'
 import Claims from './pages/Claims'
 import Settings from './pages/Settings'
@@ -20,6 +22,7 @@ import { AuthProvider, useAuth } from './services/Auth';
 import PrivateRoute from './util/PrivateRoute';
 import OpenRoute from './util/OpenRoute';
 
+
 function MainComponent() {
   const { currentUser } = useAuth();
   // console.log(currentUser) 
@@ -34,8 +37,10 @@ function MainComponent() {
           <PrivateRoute path="/users" component={Users} />
           <PrivateRoute path="/edit_user/:id" component={EditUser} />
           <PrivateRoute path="/services/:id" component={Services} />
+          <PrivateRoute path="/serviceshow" component={ServiceShow} />
           <PrivateRoute path="/edit_service/:category/:id" component={EditService} />
           <PrivateRoute path="/tips/:id" component={TipsTricks} />
+          <PrivateRoute path="/tiptrickshow" component={TipTrickShow} />
           <PrivateRoute path="/edit_tips/:category/:id" component={EditTipsTricks} />
           <PrivateRoute path="/claims" component={Claims} />
           <PrivateRoute path="/ratings/:type/:id" component={Ratings} />
