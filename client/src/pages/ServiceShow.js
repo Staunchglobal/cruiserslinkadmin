@@ -3,11 +3,12 @@ import { connect } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { SetServices } from "../Redux/actions/actions";
 import ClipLoader from 'react-spinners/ClipLoader'
-import mapboxgl from 'mapbox-gl'
 import { firestore, storage } from "../services/base";
 import Swal from 'sweetalert2'
 import { Link } from "react-router-dom";
 import { CategoriesToName, SubCategoriesToName } from "../util/constants";
+const mapboxgl = require('mapbox-gl/dist/mapbox-gl');
+
 // console.log(process.env)
 function ServiceShow(props) {
   const [user, setUser] = useState(null)
