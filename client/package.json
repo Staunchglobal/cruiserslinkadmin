@@ -26,7 +26,8 @@
     "redux": "^4.0.5",
     "simple-react-lightbox": "^3.6.3",
     "sweetalert2": "^10.15.5",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "worker-loader": "^3.0.8"
   },
   "scripts": {
     "start": "react-scripts start",

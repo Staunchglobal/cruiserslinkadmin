@@ -224,6 +224,7 @@ function ServiceShow(props) {
         <div>
           <Map
             style="mapbox://styles/mapbox/streets-v8"
+            zoom={[15]}
             center={[serviceData.LocationLongitude, serviceData.LocationLatitude]}
             containerStyle={{
               height: 400,
