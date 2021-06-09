@@ -7,7 +7,12 @@ import { firestore, storage } from "../services/base";
 import Swal from 'sweetalert2'
 import { Link } from "react-router-dom";
 import { CategoriesToName, SubCategoriesToName } from "../util/constants";
-const mapboxgl = require('mapbox-gl/dist/mapbox-gl');
+import locationPin from '../images/location_pin.png'
+// const mapboxgl = require('mapbox-gl/dist/mapbox-gl');
+import ReactMapboxGl, { Marker } from "react-mapbox-gl";
+const Map = ReactMapboxGl({
+  accessToken: process.env.REACT_APP_MAPBOX_TOKEN
+});
 
 // console.log(process.env)
 function ServiceShow(props) {
@@ -15,24 +20,10 @@ function ServiceShow(props) {
   const { category, serviceId } = useParams()
   const { services, serviceData, setServices } = props
   const intCat = JSON.parse(category)
-  const mapContainer = useRef(null);
-  const map = useRef(null);
   const history = useHistory()
 
   useEffect(() => {
-    // console.log(intCat, serviceId, serviceData)
-    if (map.current) return; // initialize map only once
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [serviceData.LocationLongitude, serviceData.LocationLatitude],
-      zoom: 15,
-      interactive: false
-    });
     fetchUser()
-    const marker = new mapboxgl.Marker({ color: 'green' })
-      .setLngLat([serviceData.LocationLongitude, serviceData.LocationLatitude])
-      .addTo(map.current);
   }, [])
 
   const fetchUser = function () {
@@ -231,7 +222,19 @@ function ServiceShow(props) {
           }
         </div>
         <div>
-          <div ref={mapContainer} className="map-container" />
+          <Map
+            style="mapbox://styles/mapbox/streets-v8"
+            center={[serviceData.LocationLongitude, serviceData.LocationLatitude]}
+            containerStyle={{
+              height: 400,
+              // width: '100vw'
+            }}>
+            <Marker
+              coordinates={[serviceData.LocationLongitude, serviceData.LocationLatitude]}
+              anchor="bottom">
+              <img src={locationPin} style={{ width: 30, height: 30 }} />
+            </Marker>
+          </Map>
         </div>
       </div>
 

@@ -22,8 +22,8 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import { AuthProvider, useAuth } from './services/Auth';
 import PrivateRoute from './util/PrivateRoute';
 import OpenRoute from './util/OpenRoute';
-import mapboxgl from 'mapbox-gl'
-mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
+// import mapboxgl from 'mapbox-gl'
+// mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
 // mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 // console.log(process.env)
 function MainComponent() {
