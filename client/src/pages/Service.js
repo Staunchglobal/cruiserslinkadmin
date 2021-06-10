@@ -123,6 +123,7 @@ const Service = function (props) {
                     const storeRef = storage.ref(`ServiceImages/${id}`);
                     await firestore.collection('Services').doc(id).delete();
                     await firestore.collection('ServiceDetails').doc(id).delete();
+                    await firestore.collection('ServiceLocations').doc(id).delete();
                     // await storeRef.delete();
                     await Swal.fire({ title: 'Success', text: 'Service Deleted Successfully', icon: 'success' });
                     setServices(intId, services.data.filter(x => x.id !== id));
