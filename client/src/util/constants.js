@@ -3,6 +3,7 @@ import Customs from '../images/Customs.svg';
 import Food from '../images/Food.svg';
 import Health from '../images/Health.svg';
 import Marinas from '../images/Marinas.svg';
+import Anchor from '../images/anchor.png'
 import Miscellanous from '../images/Miscellanous.svg';
 import Pets from '../images/Pets.svg';
 import Telecom from '../images/Telecom.svg';
@@ -190,7 +191,7 @@ export const ServiceCategories = [
     },
     {
         "id": 2,
-        "thumb": Marinas,
+        "thumb": Anchor,
         "category_name": "Anchorages",
         "category_key": "anchorages",
         "num_sub_categories": 2,
