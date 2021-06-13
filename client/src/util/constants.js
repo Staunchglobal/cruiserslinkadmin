@@ -183,8 +183,8 @@ export const ServiceCategories = [
                 "id": 122
             },
             {
-                "sub_category_name": "Boat Brokrages",
-                "sub_category_key": "boat_brokrages",
+                "sub_category_name": "Boat Brokerages",
+                "sub_category_key": "boat_brokerages",
                 "id": 123
             },
         ]
@@ -946,7 +946,7 @@ export const SubCategoriesToName = {
     120: "Insurance",
     121: "Provisioning",
     122: "Refrigeration",
-    123: "Boat Brokrages",
+    123: "Boat Brokerages",
     203: "Anchorages",
     301: "Super Markets",
     302: "Bars",
