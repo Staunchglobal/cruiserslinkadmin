@@ -23,7 +23,11 @@ function ServiceShow(props) {
   const history = useHistory()
 
   useEffect(() => {
-    fetchUser()
+    fetchUser();
+    if (!serviceData.reviewedByAdmin) {
+      firestore.collection('Services').doc(serviceData.id).update({ reviewedByAdmin: true }).then(x => { });
+      setServices(intCat, services.data.map(x => x.id === serviceData.id ? { ...x, reviewedByAdmin: true } : x));
+    }
   }, [])
 
   const fetchUser = function () {
@@ -62,9 +66,10 @@ function ServiceShow(props) {
   }
   const EnableDisableService = function (id, value) {
     firestore.collection('Services').doc(id).update({
-      ServiceStatus: value ? "active" : "inactive"
+      ServiceStatus: value ? "active" : "inactive",
+      reviewedByAdmin: value,
     }).then(y => {
-      setServices(intCat, services.data.map(x => x.id === id ? { ...x, ServiceStatus: value ? "active" : "inactive" } : x));
+      setServices(intCat, services.data.map(x => x.id === id ? { ...x, ServiceStatus: value ? "active" : "inactive", reviewedByAdmin: value } : x));
       Swal.fire({ title: 'Success!', text: 'Service Changed Successfully', icon: 'success' }).then(_ => { })
     }).catch(err => {
       Swal.fire({ title: 'Error!', text: err.message, icon: 'error' }).then(_ => { })
@@ -84,7 +89,7 @@ function ServiceShow(props) {
                 <table className="table table-bordered table-striped">
                   <tbody>
                     <tr>
-                      <th colSpan={2} className="text-center">Service Details</th>
+                      <th style={{ backgroundColor: serviceData.reviewedByAdmin ? "green" : "red", color: 'white' }} colSpan={2} className="text-center">Service Details</th>
                     </tr>
                     <tr>
                       <th>Service Type</th>

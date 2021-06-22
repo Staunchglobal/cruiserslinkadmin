@@ -1,8 +1,13 @@
 const admin = require('firebase-admin');
-const geo = require('geofirex').init(admin);
+// const geo = require('geofirex').init(admin);
 
 admin.firestore().collection('Services').get().then(snapshot => {
     snapshot.docs.forEach(doc => {
+        admin.firestore().collection('Services').doc(doc.id).update({
+            reviewedByAdmin: doc.data().ServiceStatus === "active"
+        }).then(x => {
+            console.log(`Doc id ${doc.id} updated`)
+        })
         // console.log(doc.data().PublishedBy)
         // admin.firestore().collection('Users').doc(doc.data().PublishedBy).get().then(userSnap => {
         //     if (userSnap.data().userType) {

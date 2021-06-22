@@ -32,9 +32,9 @@ const Service = function (props) {
         if (services.data.length > 0) {
             firestore
                 .collection('Services')
-                .orderBy('DateSubmitted', 'desc')
+                .orderBy('DateUpdated', 'desc')
                 .where('Category', '==', intId)
-                .startAfter(services.data[services.data.length - 1].DateSubmitted)
+                .startAfter(services.data[services.data.length - 1].DateUpdated)
                 .limit(limit)
                 .get()
                 .then(snapshot => {
@@ -52,7 +52,7 @@ const Service = function (props) {
             firestore
                 .collection('Services')
                 .where('Category', '==', intId)
-                .orderBy('DateSubmitted', 'desc')
+                .orderBy('DateUpdated', 'desc')
                 .limit(limit)
                 .get()
                 .then(snapshot => {
@@ -136,9 +136,10 @@ const Service = function (props) {
 
     const EnableDisableService = function (id, value) {
         firestore.collection('Services').doc(id).update({
-            ServiceStatus: value ? "active" : "inactive"
+            ServiceStatus: value ? "active" : "inactive",
+            reviewedByAdmin: value
         }).then(y => {
-            setServices(intId, services.data.map(x => x.id === id ? { ...x, ServiceStatus: value ? "active" : "inactive" } : x));
+            setServices(intId, services.data.map(x => x.id === id ? { ...x, ServiceStatus: value ? "active" : "inactive", reviewedByAdmin: value } : x));
             Swal.fire({ title: 'Success!', text: 'Service Changed Successfully', icon: 'success' }).then(_ => { })
         }).catch(err => {
             Swal.fire({ title: 'Error!', text: err.message, icon: 'error' }).then(_ => { })
@@ -192,7 +193,7 @@ const Service = function (props) {
                                     <table className="table table-bordered table-striped">
                                         <tbody>
                                             <tr>
-                                                <th colSpan="2" className="text-center">{entry.ProductName}</th>
+                                                <th style={{ backgroundColor: entry.reviewedByAdmin ? "green" : "red", color: 'white' }} colSpan="2" className="text-center">{entry.ProductName}</th>
                                             </tr>
                                             <tr>
                                                 <th>Service Type</th>
@@ -242,6 +243,10 @@ const Service = function (props) {
                                                 <th>Date Added</th>
                                                 <td>{entry.DateSubmitted.toDate().toString()}</td>
                                             </tr>
+                                            {/* <tr>
+                                                <th>Date Updated</th>
+                                                <td>{entry.DateUpdated.toDate().toString()}</td>
+                                            </tr> */}
                                             <tr>
                                                 <th>Ratings</th>
                                                 <td><Link to={`/ratings/service/${entry.id}`}>View Ratings</Link></td>
