@@ -209,7 +209,7 @@ export const ServiceCategories = [
             {
                 "sub_category_name": "Anchorages",
                 "sub_category_key": "anchorages",
-                "id": 203
+                "id": 201
             },
         ]
     },
@@ -947,7 +947,7 @@ export const SubCategoriesToName = {
     121: "Provisioning",
     122: "Refrigeration",
     123: "Boat Brokerages",
-    203: "Anchorages",
+    201: "Anchorages",
     301: "Super Markets",
     302: "Bars",
     303: "Restaurants",

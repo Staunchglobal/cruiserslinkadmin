@@ -12,6 +12,8 @@ require('./server/routes/push_notifications')(app);
 
 // Loads the FirebaseAdmin Client from the credentials
 require('./server/services/FirebaseAdminService');
+// require('./server/util/serviceSubCatChange');
+// require('./server/util/fixTipsAndTricksRatings')
 // require('./server/util/showUsers')
 // require('./server/util/sendEmail')
 // require('./server/util/makeAdmin')
