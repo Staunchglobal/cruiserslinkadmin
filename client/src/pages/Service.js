@@ -40,8 +40,8 @@ const Service = function (props) {
                 .then(snapshot => {
                     setServices(intId, [...services.data, ...snapshot.docs.map((doc, index) => {
                         return {
-                            id: doc.id,
                             ...doc.data(),
+                            id: doc.id,
                         }
                     })]
                     )
@@ -58,8 +58,8 @@ const Service = function (props) {
                 .then(snapshot => {
                     setServices(intId, snapshot.docs.map((doc, index) => {
                         return {
-                            id: doc.id,
                             ...doc.data(),
+                            id: doc.id,
                         }
                     }))
                 }).catch(err => {
@@ -135,6 +135,7 @@ const Service = function (props) {
     }
 
     const EnableDisableService = function (id, value) {
+        console.log(id, value)
         firestore.collection('Services').doc(id).update({
             ServiceStatus: value ? "active" : "inactive",
             reviewedByAdmin: value
@@ -186,6 +187,7 @@ const Service = function (props) {
                     </div>
                 </div>
                 {data.map((entry, index) => {
+                    // console.log(entry)
                     return (
                         <div key={entry.id} className="form-row mt-3 mb-3">
                             <div className="col">

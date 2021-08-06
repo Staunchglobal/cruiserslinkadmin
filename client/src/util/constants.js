@@ -78,7 +78,7 @@ export const ServiceCategories = [
                 "id": 101
             },
             {
-                "sub_category_name": "Dinghy Dock’s",
+                "sub_category_name": "Dinghy Docks",
                 "sub_category_key": "dinghy_docks",
                 "id": 102
             },
@@ -925,7 +925,7 @@ export const CategoriesToName = {
 }
 export const SubCategoriesToName = {
     101: "Chandleries",
-    102: "Dinghy Dock’s",
+    102: "Dinghy Docks",
     116: "Marinas",
     117: "Boatyards",
     103: "Rubbish Disposals",
