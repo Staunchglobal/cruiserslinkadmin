@@ -19,7 +19,7 @@ require('./server/services/FirebaseAdminService');
 // require('./server/util/makeAdmin')
 // require('./Server/Services/FirebaseAdminService')
 // require('./server/util/createIndex')
-// require('./server/util/testUsers')
+require('./server/util/testUsers')
 // require('./Server/Routes/getUserData')(app)
 // require('./Server/Routes/getProjectsData')(app)
 // require('./server/util/fullTextSearch')
@@ -28,6 +28,7 @@ require('./server/services/FirebaseAdminService');
 // require('./server/util/updateUsers')
 // require('./server/util/resolveServiceLocations')
 // require('./server/util/fixServiceid')
+// require('./server/util/serviceLocationsConflict')
 // app.use(function (req, res, next) {
 //     res.header("Access-Control-Allow-Origin", "http://localhost:5000/"); // update to match the domain you will make the request from
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
