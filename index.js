@@ -19,7 +19,7 @@ require('./server/services/FirebaseAdminService');
 // require('./server/util/makeAdmin')
 // require('./Server/Services/FirebaseAdminService')
 // require('./server/util/createIndex')
-require('./server/util/testUsers')
+// require('./server/util/testUsers')
 // require('./Server/Routes/getUserData')(app)
 // require('./Server/Routes/getProjectsData')(app)
 // require('./server/util/fullTextSearch')

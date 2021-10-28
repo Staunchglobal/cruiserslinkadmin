@@ -41,7 +41,7 @@ const serviceByCategory = function (id, name, collection, updateColumn, column) 
     })
 }
 
-const names = ["Yacht", "Marinas", "Food & Drinks", "Tips And Tricks", "Destination Info", "Health", "Places Of Interest", "Government && Customs", "Miscellanous", "Messaging"]
+const names = ["Yacht", "Marinas", "Food & Drinks", "Tips And Tricks", "Destination Info", "Health", "Places Of Interest", "Government & Customs", "Miscellanous", "Messaging"]
 for (let i = 1; i < 10; i += 1) {
     if (i !== 4)
         serviceByCategory(i, names[i - 1], 'Services', updateColumns[0], "Category")

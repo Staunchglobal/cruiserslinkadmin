@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { firestore, storage } from '../services/base'
 import { CategoriesToName, SubCategoriesToName } from '../util/constants'
 import Swal from 'sweetalert2'
-const names = ["Yacht Services", "Anchorages", "Food & Drinks", "Tips & Tricks", "Destination Info", "Health", "Places Of Interest", "Government && Customs", "Miscellanous", "Messaging"]
+const names = ["Yacht Services", "Anchorages", "Food & Drinks", "Tips & Tricks", "Destination Info", "Health", "Places Of Interest", "Government & Customs", "Miscellanous", "Messaging"]
 const Service = function (props) {
     const { stats, services, id, setServices, limit } = props
     const intId = JSON.parse(id);
